@@ -1,0 +1,57 @@
+---
+title: "Configured State Is Not Wire Behavior"
+description: "A methodological note on why operating system link parameters, driver declarations, and interface negotiation deviate from actual transport queuing dynamics."
+publishedAt: "2026-03-20"
+readingTime: "4 min read"
+tags: ["Networking", "Bufferbloat", "Methodology", "Systems"]
+author: "Rujul Talekar"
+---
+
+## The Assumption of Runtime Compliance
+
+In network systems engineering and transport research, a common failure mode is treating configured interface states as ground truth for runtime behavior.
+
+When an operating system interface reports a link negotiation—such as an active cellular 5G connection with carrier aggregation or a gigabit ethernet descriptor—it declares the theoretical boundary of the link under optimal framing. It does not describe what happens when buffers along the path experience queue buildup.
+
+```
++-------------------+      +-------------------+      +-------------------+
+|  Configured State |  !=  |   Observed State  |  !=  | Measured Behavior |
+| (Driver / Socket) |      | (Interface Stats) |      |   (On the Wire)   |
++-------------------+      +-------------------+      +-------------------+
+```
+
+A parameter set in user space or reported through standard operating system APIs (e.g., `ConnectivityManager` or socket properties) is an intent. The physical behavior on the wire is governed by:
+
+1. Intermediate operating system queue disciplines (`qdisc`)
+2. Byte Queue Limits (BQL) in the network interface controller driver
+3. Cellular modem baseband queue aggregation
+4. Radio Access Network (RAN) scheduling intervals and bearer allocation
+
+None of these downstream queue stages are synchronously exposed through standard application-layer socket queries.
+
+## The Bufferbloat Problem Under Cellular Links
+
+Bufferbloat emerges when excessive buffering inside network nodes causes packets to queue up for hundreds of milliseconds rather than dropping early or signaling congestion (such as via ECN). 
+
+In wired environments with CoDel or PIE active queue management (AQM), excessive queue delay is mitigated by proactively dropping or marking packets at the bottleneck. In cellular access networks, however, large buffers are intentionally provisioned by baseband firmware and telecommunications equipment to prevent dropped packets during transient radio fading events.
+
+When an application initiates a sustained upload or bulk transfer, the following divergence occurs:
+
+* **Declared Interface Metric:** The interface reports high bandwidth, low idle ping times (e.g., 20–30 ms baseline RTT), and stable link quality indicators.
+* **Actual Wire Behavior:** Under saturation, packets accumulate in deep queues within the cellular modem or radio bearer. The observable round-trip time inflates dramatically—frequently exceeding 500 ms to over 1500 ms—while packet loss remains near zero.
+
+An engineer observing only interface state concludes that the network is healthy because throughput is high and packet loss is minimal. An engineer measuring active queue latency discovers that interactive packets (DNS lookups, audio frames, bidirectional control signals) are starved behind bloated transmission queues.
+
+## Methodological Discipline: Instrumenting the Wire
+
+To build defensible networked applications, software cannot rely on declared link state. The research methodology deployed in our cellular transport investigations adheres to a strict pipeline:
+
+$$\text{Configured State} \longrightarrow \text{Observed State} \longrightarrow \text{Measured Behavior} \longrightarrow \text{Defensible Conclusion}$$
+
+1. **Baseline Prior to Intervention:** Establish uncontended round-trip latency, jitter variance, and packet transit times under idle conditions.
+2. **Concurrent In-Flight Load:** Induce controlled unidirectional and bidirectional saturation across application sockets.
+3. **Continuous Independent Telemetry:** Measure latency of small, high-frequency probe packets concurrently with the bulk data stream to calculate Bufferbloat Latency Inflation:
+   $$\Delta \text{RTT} = \text{RTT}_{\text{loaded}} - \text{RTT}_{\text{idle}}$$
+4. **Preserve Negative and Null Observations:** If an OS optimization or transport tuning does not demonstrably reduce $\Delta \text{RTT}$ under reproducible load, the hypothesis is rejected regardless of synthetic throughput gains.
+
+Systems engineering requires observing the physical artifact in execution. What is written in the configuration file or returned by an OS enum is only an aspiration; what crosses the wire is the reality.
