@@ -25,9 +25,9 @@ export const projects: ProjectItem[] = [
     stack: ["Android", "Kotlin", "Java", "Networking", "Telemetry"],
     featured: true,
     highlights: [
-      "Profiles active round-trip latency variance while cellular uplinks/downlinks are saturated.",
+      "Investigates round-trip latency behavior under controlled network load.",
       "Implements lightweight mobile telemetry to measure transport behavior without synthetic kernel modifications.",
-      "Demonstrates empirical deviation between configured link parameters and observable wire latency."
+      "Separates configured/API-visible transport state from measurements that still require physical validation."
     ]
   },
   {
@@ -76,8 +76,8 @@ export const projects: ProjectItem[] = [
     stack: ["Android", "5G Hotspot", "Windows Networking", "Routing Optimization"],
     featured: false,
     highlights: [
-      "Investigates carrier-specific packet routing differences across Indian 5G standalone (SA) and non-standalone (NSA) networks.",
-      "Guides driver configuration, TCP window adjustments, and Wi-Fi hotspot band selection for minimum jitter."
+      "Documents practical Android hotspot and tethering configuration for Indian 5G networks.",
+      "Focuses on signal quality, hotspot configuration, packet loss, jitter, and repeatable troubleshooting."
     ]
   }
 ];

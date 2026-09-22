@@ -23,7 +23,7 @@ export const profile: Profile = {
     "Computer Engineering undergraduate and researcher working at the intersection of Human-Centered AI, Video Management Systems, edge video analytics, and cellular transport dynamics.",
   bio: [
     "Undergraduate researcher in Computer Engineering at Vishwakarma Institute of Technology (VIT Pune). Currently conducting Human-Centered AI and AI usability research under Prof. Ganesh Bhutkar.",
-    "My work bridges empirical measurement and systems engineering: characterizing cellular bufferbloat on mobile runtimes, synthesizing architectural evidence from 60 VMS research papers, and developing real-time edge computer vision pipelines.",
+    "My work bridges empirical measurement and systems engineering: characterizing cellular bufferbloat on mobile runtimes, synthesizing architectural evidence from 60 VMS research papers, and experimenting with edge computer vision and video analytics pipelines.",
     "Driven by a core methodological principle: Configured State Is Not Wire Behavior. Systems must be characterized through empirical instrumentation, baseline comparisons, and reproducible telemetry rather than declared parameters."
   ],
   principles: [
