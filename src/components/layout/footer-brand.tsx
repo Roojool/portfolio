@@ -36,19 +36,15 @@ export function RujulFooterInteractiveLogotype() {
     gradientX1Raw.set(0.5);
   };
 
-  // Modular outline path for RUJUL
+  // Stylized modular architectural RT monogram on precision 32px grid
+  // ViewBox: 1410 x 258 (44 columns x 8 rows)
+  // R: cols 4..17 (x: 129..577), Gap: cols 18..25 (x: 577..833), T: cols 26..39 (x: 833..1281)
   const letterR =
-    "M40 10h150c40 0 74 34 74 74 0 28-16 52-40 64l48 80h-48l-42-72H84v72H40V10zm44 42v62h104c18 0 32-14 32-31s-14-31-32-31H84z";
-  const letterU1 =
-    "M310 10h44v146c0 30 24 54 54 54s54-24 54-54V10h44v146c0 54-44 98-98 98s-98-44-98-98V10z";
-  const letterJ =
-    "M560 10h160v44h-58v102c0 36-28 66-64 66-36 0-66-30-66-66h44c0 12 10 22 22 22s22-10 22-22V54h-60V10z";
-  const letterU2 =
-    "M790 10h44v146c0 30 24 54 54 54s54-24 54-54V10h44v146c0 54-44 98-98 98s-98-44-98-98V10z";
-  const letterL =
-    "M1040 10h44v194h180v44h-224V10z";
+    "M129 1h448v128h-64l64 128h-128l-64-96H257v96H129V1zm128 64h192v64H257V65z";
+  const letterT =
+    "M833 1h448v64h-160v192h-128V65H833V1z";
 
-  const combinedPath = `${letterR} ${letterU1} ${letterJ} ${letterU2} ${letterL}`;
+  const combinedPath = `${letterR} ${letterT}`;
 
   return (
     <div className="screen-line-bottom after:z-1 after:bg-foreground/15">

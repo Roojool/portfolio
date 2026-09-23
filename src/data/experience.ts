@@ -23,12 +23,11 @@ export const experiences: ExperienceItem[] = [
     mode: "Hybrid",
     period: "Jun 2026 – Present",
     current: true,
-    advisor: "Prof. Ganesh Bhutkar",
     description:
       "Working on research involving Human-Computer Interaction, Human-Centered AI, usability, and emerging AI-enabled ICT applications.",
     highlights: [
       "Working on research involving Human-Computer Interaction, Human-Centered AI, usability, and emerging AI-enabled ICT applications.",
-      "Conducting research under Prof. Ganesh Bhutkar in the ACM context on quantitative interaction metrics, usability evaluation rubrics, and protocol evaluations.",
+      "Conducting research in the ACM context on quantitative interaction metrics, usability evaluation rubrics, and protocol evaluations.",
       "Formulating experimental evaluation rubrics and protocol benchmarks for AI-augmented human interactions."
     ],
     skills: [

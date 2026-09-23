@@ -16,17 +16,12 @@ export function RujulMark({ className, ...props }: React.ComponentProps<"svg">) 
       className={className}
       {...props}
     >
-      {/* Letter 'R' with inner counter hole */}
+      {/* Modular Architectural RT Monogram */}
       <path
         fill="currentColor"
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M32 0h192v128h-32v32h64v96h-64v-48h-32v-48H96v96H32V0zm64 64h64v64H96V64z"
-      />
-      {/* Letter 'T' with architectural foot bracket */}
-      <path
-        fill="currentColor"
-        d="M256 0h224v64h-80v160h32v32H304v-32h32V64h-80V0z"
+        d="M32 0h192v128h-32l32 128h-64l-32-96H96v96H32V0zm64 56h64v64H96V56zM288 0h192v56h-64v200h-64V56h-64V0z"
       />
     </svg>
   );

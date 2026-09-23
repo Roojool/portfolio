@@ -100,20 +100,6 @@ export function ExperiencePanel() {
                     <dt className="sr-only">Period</dt>
                     <dd className="tabular-nums">{exp.period}</dd>
                   </div>
-
-                  {exp.advisor && (
-                    <>
-                      <Separator
-                        orientation="vertical"
-                        className="data-vertical:h-4 data-vertical:self-center"
-                        aria-hidden
-                      />
-                      <div>
-                        <dt className="sr-only">Advisor</dt>
-                        <dd>Advisor: {exp.advisor}</dd>
-                      </div>
-                    </>
-                  )}
                 </dl>
               </CollapsibleTrigger>
 

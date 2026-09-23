@@ -24,7 +24,7 @@ export const researchVectors: ResearchVector[] = [
     summary:
       "Formulating empirical usability evaluation heuristics, interaction metrics, and protocol benchmarks for AI-augmented ICT tools.",
     currentWork:
-      "Active research group under Prof. Ganesh Bhutkar formulating quantitative usability rubrics, task-completion latency profiling, and interaction evaluation protocols for emerging AI-enabled applications.",
+      "Formulating quantitative usability rubrics, task-completion latency profiling, and interaction evaluation protocols for emerging AI-enabled applications.",
     methods: [
       "Empirical usability testing",
       "Quantitative task latency analysis",

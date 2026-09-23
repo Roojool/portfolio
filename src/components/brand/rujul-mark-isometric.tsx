@@ -20,9 +20,9 @@ const transition: Transition = {
 };
 
 /**
- * RujulMarkIsometric: Refined original architectural 3D isometric RT wireframe mark.
- * Features a balanced, unified dual-mass silhouette:
- * - 'R' (left): Columnar spine, cantilevered upper facet loop, and grounded diagonal leg.
+ * RujulMarkIsometric: Refined architectural 3D isometric RT wireframe mark.
+ * Features an unmistakable, balanced dual-mass silhouette:
+ * - 'R' (left): Columnar spine, cantilevered upper facet loop with inner counter void, and grounded diagonal leg.
  * - 'T' (right): Symmetrical cantilever lintel spanning an anchored central stem.
  * Enhanced with subtle diagonal hatching, generous negative space, and spring-driven specular cursor highlight.
  */
@@ -104,21 +104,17 @@ export function RujulMarkIsometric() {
           }}
           transition={transition}
         >
-          {/* 'R' Top Loop Face */}
-          <path d="M120 72 L210 124 L165 150 L75 98 Z" />
+          {/* 'R' Spine Top Face */}
+          <path d="M66 68 L111 94 L75 115 L30 89 Z" />
+          {/* 'R' Loop Top Beam Face */}
+          <path d="M111 94 L211 152 L175 173 L75 115 Z" />
           {/* 'R' Mid Crossbar Face */}
-          <path d="M140 145 L215 188 L180 208 L105 165 Z" />
+          <path d="M75 155 L175 213 L139 234 L39 176 Z" />
           {/* 'R' Grounded Diagonal Leg Face */}
-          <path d="M155 210 L230 253 L195 273 L120 230 Z" />
-          {/* 'R' Base Foot Face */}
-          <path d="M45 168 L110 205 L80 222 L15 185 Z" />
+          <path d="M175 259 L215 282 L179 303 L139 280 Z" />
 
-          {/* 'T' Left Wing Face */}
-          <path d="M285 58 L370 107 L335 127 L250 78 Z" />
-          {/* 'T' Center Joint Face */}
-          <path d="M370 107 L425 139 L390 159 L335 127 Z" />
-          {/* 'T' Right Wing Face */}
-          <path d="M425 139 L510 188 L475 208 L390 159 Z" />
+          {/* 'T' Cantilever Lintel Top Face */}
+          <path d="M290 60 L510 187 L474 208 L254 81 Z" />
         </motion.g>
 
         {/* Wireframe edges */}
@@ -127,60 +123,60 @@ export function RujulMarkIsometric() {
           variants={{
             normal: {
               d: [
-                // 'R' Upper Loop & Spine
-                "M120 72 L210 124 V156 L165 182 V220 L120 194 V120 L75 94 V160 L30 134 V72 L120 72 Z",
-                "M210 124 L165 150 L75 98",
-                "M165 150 V182",
-                // 'R' Mid-section to Lower Leg
-                "M140 145 L215 188 V220 L180 240 L105 197 V165 L140 145 Z",
-                "M215 188 L180 208 L105 165",
-                "M180 208 V240",
-                "M155 210 L230 253 V285 L195 305 L120 262 V230 L155 210 Z",
-                "M230 253 L195 273 L120 230",
-                "M195 273 V305",
-                // 'R' Left Base Foot
-                "M45 168 L110 205 V255 L80 272 L15 235 V185 L45 168 Z",
-                "M110 205 L80 222 L15 185",
-                "M80 222 V272",
+                // 'R' Vertical Column Spine
+                "M30 89 V250 L66 229 V68 L30 89 Z",
+                "M111 94 L75 115 L30 89",
+                "M75 115 V276 L30 250",
+                "M75 276 L111 255 V94",
+                // 'R' Upper Facet Loop
+                "M111 94 L211 152 V192 L175 213 V173 L75 115",
+                "M211 152 L175 173",
+                "M211 192 L175 213",
+                // 'R' Middle Crossbar Bridge
+                "M175 213 L75 155 V187 L175 245 V213 Z",
+                // 'R' Grounded Diagonal Leg
+                "M175 213 L215 282 V302 L179 323 L139 254",
+                "M215 282 L179 303 L139 280",
+                "M179 303 V323",
 
                 // 'T' Cantilever Lintel Span
-                "M285 58 L510 188 V220 L475 240 L425 211 V295 L370 263 V179 L335 159 V127 L250 78 V110 L215 90 V58 L285 58 Z",
-                "M370 107 L335 127 L250 78",
-                "M425 139 L390 159 L335 127",
-                "M510 188 L475 208 L390 159",
-                "M475 208 V240",
-                "M390 159 V223",
-                // 'T' Center Supporting Column
-                "M425 211 L370 179 V263 L425 295 V211 Z",
+                "M290 60 L510 187 L474 208 L254 81 Z",
+                "M254 81 V113 L474 240 V208",
+                "M510 187 V219 L474 240",
+                "M254 113 L290 92 V60",
+                // 'T' Centered Supporting Column
+                "M344 165 V265 L394 294 V194",
+                "M344 265 L380 244 V144",
+                "M394 294 L430 273 V173",
               ].join(" "),
             },
             pressed: {
               d: [
-                // 'R' Upper Loop & Spine (pressed state)
-                "M120 86 L210 138 V170 L165 196 V234 L120 208 V134 L75 108 V174 L30 148 V86 L120 86 Z",
-                "M210 138 L165 164 L75 112",
-                "M165 164 V196",
-                // 'R' Mid-section to Lower Leg (pressed)
-                "M140 159 L215 202 V234 L180 254 L105 211 V179 L140 159 Z",
-                "M215 202 L180 222 L105 179",
-                "M180 222 V254",
-                "M155 224 L230 267 V299 L195 319 L120 276 V244 L155 224 Z",
-                "M230 267 L195 287 L120 244",
-                "M195 287 V319",
-                // 'R' Left Base Foot (pressed)
-                "M45 182 L110 219 V269 L80 286 L15 249 V199 L45 182 Z",
-                "M110 219 L80 236 L15 199",
-                "M80 236 V286",
+                // 'R' Vertical Column Spine (pressed)
+                "M30 103 V264 L66 243 V82 L30 103 Z",
+                "M111 108 L75 129 L30 103",
+                "M75 129 V290 L30 264",
+                "M75 290 L111 269 V108",
+                // 'R' Upper Facet Loop (pressed)
+                "M111 108 L211 166 V206 L175 227 V187 L75 129",
+                "M211 166 L175 187",
+                "M211 206 L175 227",
+                // 'R' Middle Crossbar Bridge (pressed)
+                "M175 227 L75 169 V201 L175 259 V227 Z",
+                // 'R' Grounded Diagonal Leg (pressed)
+                "M175 227 L215 296 V316 L179 337 L139 268",
+                "M215 296 L179 317 L139 294",
+                "M179 317 V337",
 
                 // 'T' Cantilever Lintel Span (pressed)
-                "M285 72 L510 202 V234 L475 254 L425 225 V309 L370 277 V193 L335 173 V141 L250 92 V124 L215 104 V72 L285 72 Z",
-                "M370 121 L335 141 L250 92",
-                "M425 153 L390 173 L335 141",
-                "M510 202 L475 222 L390 173",
-                "M475 222 V254",
-                "M390 173 V237",
-                // 'T' Center Supporting Column (pressed)
-                "M425 225 L370 193 V277 L425 309 V225 Z",
+                "M290 74 L510 201 L474 222 L254 95 Z",
+                "M254 95 V127 L474 254 V222",
+                "M510 201 V233 L474 254",
+                "M254 127 L290 106 V74",
+                // 'T' Centered Supporting Column (pressed)
+                "M344 179 V279 L394 308 V208",
+                "M344 279 L380 258 V158",
+                "M394 308 L430 287 V187",
               ].join(" "),
             },
           }}
@@ -217,35 +213,67 @@ export function RujulMarkIsometric() {
 
       {/* Solid side depth extrusion fills for architectural occlusion */}
       <g className="fill-background" fillRule="evenodd" clipRule="evenodd">
-        {/* 'T' Column Depth Faces */}
+        {/* 'T' Stem Front */}
         <motion.path
           variants={{
-            normal: { d: "M425 211 L370 179 V263 L425 295 Z" },
-            pressed: { d: "M425 225 L370 193 V277 L425 309 Z" },
+            normal: { d: "M344 165 V265 L394 294 V194 Z" },
+            pressed: { d: "M344 179 V279 L394 308 V208 Z" },
           }}
           transition={transition}
         />
-        {/* 'T' Right Cantilever Wing Depth Face */}
+        {/* 'T' Stem Left */}
         <motion.path
           variants={{
-            normal: { d: "M510 188 L475 208 V240 L510 220 Z" },
-            pressed: { d: "M510 202 L475 222 V254 L510 234 Z" },
+            normal: { d: "M344 165 L380 144 V244 L344 265 Z" },
+            pressed: { d: "M344 179 L380 158 V258 L344 279 Z" },
           }}
           transition={transition}
         />
-        {/* 'R' Lower Leg Depth Face */}
+        {/* 'T' Lintel Front */}
         <motion.path
           variants={{
-            normal: { d: "M230 253 L195 273 V305 L230 285 Z" },
-            pressed: { d: "M230 267 L195 287 V319 L230 299 Z" },
+            normal: { d: "M254 81 V113 L474 240 V208 Z" },
+            pressed: { d: "M254 95 V127 L474 254 V222 Z" },
           }}
           transition={transition}
         />
-        {/* 'R' Base Foot Depth Face */}
+        {/* 'T' Lintel Right Face */}
         <motion.path
           variants={{
-            normal: { d: "M110 205 L80 222 V272 L110 255 Z" },
-            pressed: { d: "M110 219 L80 236 V286 L110 269 Z" },
+            normal: { d: "M474 208 V240 L510 219 V187 Z" },
+            pressed: { d: "M474 222 V254 L510 233 V201 Z" },
+          }}
+          transition={transition}
+        />
+        {/* 'R' Spine Front Face */}
+        <motion.path
+          variants={{
+            normal: { d: "M30 89 V250 L75 276 V115 Z" },
+            pressed: { d: "M30 103 V264 L75 290 V129 Z" },
+          }}
+          transition={transition}
+        />
+        {/* 'R' Spine Right Face */}
+        <motion.path
+          variants={{
+            normal: { d: "M75 115 V276 L111 255 V94 Z" },
+            pressed: { d: "M75 129 V290 L111 269 V108 Z" },
+          }}
+          transition={transition}
+        />
+        {/* 'R' Loop Front Face */}
+        <motion.path
+          variants={{
+            normal: { d: "M175 173 V213 L211 192 V152 Z" },
+            pressed: { d: "M175 187 V227 L211 206 V166 Z" },
+          }}
+          transition={transition}
+        />
+        {/* 'R' Leg Front Face */}
+        <motion.path
+          variants={{
+            normal: { d: "M175 213 L215 282 V302 L175 233 Z" },
+            pressed: { d: "M175 227 L215 296 V316 L175 247 Z" },
           }}
           transition={transition}
         />

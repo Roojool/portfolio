@@ -12,12 +12,6 @@ import { publications } from "@/data/publications";
 import { patents } from "@/data/patents";
 import { cn } from "@/lib/utils";
 
-const INSPIRED_BY = [
-  "ncdai/chanhdai.com",
-  "shadcn/ui",
-  "Tailwind CSS",
-  "Vercel",
-];
 
 const SITE_TITLE = "rujul-talekar";
 const SITE_SUBTITLE = "AI research, systems engineering, and experimental software.";
@@ -171,22 +165,6 @@ export function Footer() {
               </ul>
             </Field>
 
-            {/* Inspired By */}
-            <Field className="col-span-2 md:col-span-4" label="Inspired by">
-              <ol className="-mx-4 grid grid-cols-2 gap-x-px gap-y-0.5 font-sans md:grid-cols-4">
-                {INSPIRED_BY.map((name, index) => (
-                  <li className="flex gap-2 px-4" key={name}>
-                    <span
-                      className="font-mono text-muted-foreground/80 select-none"
-                      aria-hidden
-                    >
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <span className="truncate">{name}</span>
-                  </li>
-                ))}
-              </ol>
-            </Field>
           </dl>
         </div>
 

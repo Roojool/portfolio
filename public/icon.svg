@@ -1,9 +1,7 @@
 <svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="192" height="192" rx="36" fill="#090a0f"/>
-  <rect x="12" y="12" width="168" height="168" rx="24" stroke="#1e2235" stroke-width="6"/>
-  <path d="M48 48V144" stroke="#f1f5f9" stroke-width="14" stroke-linecap="square"/>
-  <path d="M48 48H86C100 48 108 56 108 70C108 84 100 92 86 92H48" stroke="#f1f5f9" stroke-width="14" stroke-linecap="square"/>
-  <path d="M78 92L108 144" stroke="#f1f5f9" stroke-width="14" stroke-linecap="square"/>
-  <path d="M114 48H150" stroke="#06b6d4" stroke-width="14" stroke-linecap="square"/>
-  <path d="M132 48V144" stroke="#06b6d4" stroke-width="14" stroke-linecap="square"/>
+  <rect width="192" height="192" rx="42" fill="#090a0f"/>
+  <rect x="4.5" y="4.5" width="183" height="183" rx="37.5" stroke="#27272a" stroke-width="5"/>
+  <g transform="matrix(0.28125 0 0 0.28125 24 60)">
+    <path fill="#fafafa" fill-rule="evenodd" clip-rule="evenodd" d="M32 0h192v128h-32l32 128h-64l-32-96H96v96H32V0zm64 56h64v64H96V56zM288 0h192v56h-64v200h-64V56h-64V0z"/>
+  </g>
 </svg>

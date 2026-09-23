@@ -70,9 +70,9 @@ export function AboutPanel() {
               Management Systems, computer vision, and network telemetry.
             </li>
             <li>
-              Current research includes AI usability evaluation with Prof.
-              Ganesh Bhutkar, a structured 60-paper VMS research corpus, and
-              empirical cellular bufferbloat measurement on mobile endpoints.
+              Current research includes AI usability evaluation, a structured
+              60-paper VMS research corpus, and empirical cellular bufferbloat
+              measurement on mobile endpoints.
             </li>
             <li>
               I treat configured state, observed state, and measured behavior
