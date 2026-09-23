@@ -24,24 +24,42 @@ export function PatentPanel() {
       <div>
         {patents.map((pat) => {
           const details = (
-            <div className="space-y-2">
-              <p className="text-sm text-muted-foreground">{pat.description}</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono pt-1 text-muted-foreground">
+            <div className="space-y-3">
+              <p className="text-xs text-foreground/90 font-sans leading-relaxed">
+                {pat.summary}
+              </p>
+
+              <div className="space-y-1.5 text-xs font-mono text-muted-foreground pt-1 border-t border-line">
                 <div>
-                  <span className="font-semibold text-foreground">Filing Date: </span>
-                  {pat.filingDate}
+                  <span className="font-semibold text-foreground">Identifier: </span>
+                  <span className="tabular-nums">{pat.identifier}</span>
                 </div>
+
                 <div>
-                  <span className="font-semibold text-foreground">Publication Date: </span>
-                  {pat.publicationDate}
+                  <span className="font-semibold text-foreground">Jurisdiction: </span>
+                  <span>{pat.jurisdiction}</span>
                 </div>
-                <div className="sm:col-span-2">
-                  <span className="font-semibold text-foreground">Field: </span>
-                  {pat.field}
+
+                <div>
+                  <span className="font-semibold text-foreground">Status: </span>
+                  <span>{pat.status}</span>
+                </div>
+
+                <div>
+                  <span className="font-semibold text-foreground">
+                    {pat.dateLabel} Date:{" "}
+                  </span>
+                  <span className="tabular-nums">{pat.date}</span>
                 </div>
               </div>
             </div>
           );
+
+          const tags = [
+            pat.jurisdiction,
+            pat.status,
+            ...(pat.ipcClassification || []),
+          ];
 
           return (
             <RecordItem
@@ -49,10 +67,10 @@ export function PatentPanel() {
               icon={<ShieldCheck className="size-4" />}
               title={pat.title}
               type={pat.status}
-              date="2026"
-              metadata={`Field: ${pat.field}`}
+              date={pat.date}
+              metadata={`${pat.jurisdiction} · ${pat.identifier}`}
               details={details}
-              tags={pat.ipcClassification}
+              tags={tags}
             />
           );
         })}

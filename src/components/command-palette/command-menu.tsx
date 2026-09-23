@@ -167,6 +167,16 @@ export function CommandMenu() {
                   </Command.Item>
                   <Command.Item
                     onSelect={() =>
+                      runCommand(() => window.open(SITE_INFO.scholarUrl, "_blank"))
+                    }
+                    className="flex items-center gap-2 px-2.5 py-2 rounded text-foreground hover:bg-muted cursor-pointer"
+                  >
+                    <BookOpen className="size-3.5 text-muted-foreground" />
+                    <span>Google Scholar Profile</span>
+                    <ExternalLink className="size-3 text-muted-foreground ml-auto" />
+                  </Command.Item>
+                  <Command.Item
+                    onSelect={() =>
                       runCommand(() => window.open(SITE_INFO.orcidUrl, "_blank"))
                     }
                     className="flex items-center gap-2 px-2.5 py-2 rounded text-foreground hover:bg-muted cursor-pointer"

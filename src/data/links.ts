@@ -18,13 +18,18 @@ export const socialLinks = {
     label: "LinkedIn",
     username: "rujul-talekar"
   },
+  googleScholar: {
+    name: "Google Scholar",
+    url: "https://scholar.google.com/citations?user=RWQN9K8AAAAJ&hl=en",
+    label: "Google Scholar",
+    username: "RWQN9K8AAAAJ"
+  },
   orcid: {
     name: "ORCID",
     url: "https://orcid.org/0009-0008-5608-1512",
     label: "ORCID",
     id: "0009-0008-5608-1512"
   },
-  googleScholar: null,
   email: null,
   resume: null
 };
@@ -41,6 +46,12 @@ export const primaryLinks: SocialLink[] = [
     url: "https://www.linkedin.com/in/rujul-talekar/",
     label: "LinkedIn",
     username: "rujul-talekar"
+  },
+  {
+    name: "Google Scholar",
+    url: "https://scholar.google.com/citations?user=RWQN9K8AAAAJ&hl=en",
+    label: "Google Scholar",
+    username: "RWQN9K8AAAAJ"
   },
   {
     name: "ORCID",

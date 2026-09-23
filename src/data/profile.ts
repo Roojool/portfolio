@@ -14,15 +14,15 @@ export interface Profile {
 export const profile: Profile = {
   name: "Rujul Talekar",
   title: "AI Researcher × Systems Builder",
-  role: "Undergraduate Researcher & Systems Builder",
+  role: "Artificial Intelligence Researcher & Systems Builder",
   institution: "Vishwakarma Institute of Technology (VIT Pune)",
-  location: "Pune, Maharashtra, India",
+  location: "Pune District, Maharashtra, India",
   timezone: "Asia/Kolkata (UTC+05:30)",
   status: "AI/HCI · VMS · NETWORK SYSTEMS",
   headline:
-    "Computer Engineering undergraduate and researcher working at the intersection of Human-Centered AI, Video Management Systems, edge video analytics, and cellular transport dynamics.",
+    "AI research, systems engineering, and experimental software. Working on Human-Centered AI, Video Management Systems, edge video analytics, and cellular transport dynamics.",
   bio: [
-    "Undergraduate researcher in Computer Engineering at Vishwakarma Institute of Technology (VIT Pune). Currently conducting Human-Centered AI and AI usability research under Prof. Ganesh Bhutkar.",
+    "Computer Engineering undergraduate at Vishwakarma Institute of Technology (VIT Pune) and AI Researcher with ACM. Currently conducting Human-Centered AI and AI usability research under Prof. Ganesh Bhutkar.",
     "My work bridges empirical measurement and systems engineering: characterizing cellular bufferbloat on mobile runtimes, synthesizing architectural evidence from 60 VMS research papers, and experimenting with edge computer vision and video analytics pipelines.",
     "Driven by a core methodological principle: Configured State Is Not Wire Behavior. Systems must be characterized through empirical instrumentation, baseline comparisons, and reproducible telemetry rather than declared parameters."
   ],

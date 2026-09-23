@@ -42,8 +42,10 @@ export function ExperiencePanel() {
               </h3>
 
               <dl className="flex min-w-0 items-center gap-1.5 text-sm whitespace-nowrap text-muted-foreground">
-                <dt className="sr-only">Location</dt>
-                <dd className="truncate">{exp.location}</dd>
+                <dt className="sr-only">Location & Mode</dt>
+                <dd className="truncate">
+                  {exp.location} · {exp.mode}
+                </dd>
 
                 <dt className="sr-only">Employment status</dt>
                 <dd>
@@ -70,7 +72,7 @@ export function ExperiencePanel() {
               <CollapsibleTrigger className="group block w-full text-left relative before:absolute before:-top-1 before:-right-1 before:-bottom-1.5 before:left-7 before:-z-1 before:rounded-lg before:transition-[background-color] before:ease-out hover:before:bg-accent-muted outline-none">
                 <div className="relative z-1 mb-1 flex items-start gap-3 text-base">
                   <IconTile>
-                    <Briefcase />
+                    <Briefcase className="size-4" />
                   </IconTile>
 
                   <h4 className="flex-1 font-medium text-balance">
@@ -82,10 +84,10 @@ export function ExperiencePanel() {
                   </div>
                 </div>
 
-                <dl className="flex items-center gap-2 pl-9 text-sm text-muted-foreground">
+                <dl className="flex flex-wrap items-center gap-2 pl-9 text-sm text-muted-foreground">
                   <div>
-                    <dt className="sr-only">Advisor</dt>
-                    <dd>Advisor: {exp.advisor}</dd>
+                    <dt className="sr-only">Employment Type</dt>
+                    <dd>{exp.employmentType}</dd>
                   </div>
 
                   <Separator
@@ -95,26 +97,32 @@ export function ExperiencePanel() {
                   />
 
                   <div>
-                    <dt className="sr-only">Focus</dt>
-                    <dd>{exp.focus}</dd>
+                    <dt className="sr-only">Period</dt>
+                    <dd className="tabular-nums">{exp.period}</dd>
                   </div>
 
-                  <Separator
-                    orientation="vertical"
-                    className="data-vertical:h-4 data-vertical:self-center"
-                    aria-hidden
-                  />
-
-                  <div>
-                    <dt className="sr-only">Status</dt>
-                    <dd className="tabular-nums">Present</dd>
-                  </div>
+                  {exp.advisor && (
+                    <>
+                      <Separator
+                        orientation="vertical"
+                        className="data-vertical:h-4 data-vertical:self-center"
+                        aria-hidden
+                      />
+                      <div>
+                        <dt className="sr-only">Advisor</dt>
+                        <dd>Advisor: {exp.advisor}</dd>
+                      </div>
+                    </>
+                  )}
                 </dl>
               </CollapsibleTrigger>
 
               <CollapsibleContent className="overflow-hidden">
                 <div className="typeset typeset-description pt-3 pb-1 pl-9">
-                  <ul className="list-disc space-y-1.5 [&_li]:ps-0.5">
+                  <p className="text-xs text-foreground/90 leading-relaxed font-sans mb-2">
+                    {exp.description}
+                  </p>
+                  <ul className="list-disc space-y-1.5 [&_li]:ps-0.5 text-xs text-muted-foreground">
                     {exp.highlights.map((h, i) => (
                       <li key={i}>{h}</li>
                     ))}
@@ -123,18 +131,11 @@ export function ExperiencePanel() {
               </CollapsibleContent>
 
               <ul className="flex flex-wrap gap-1.5 pt-3 pl-9">
-                <li>
-                  <Tag>Human-Centered AI</Tag>
-                </li>
-                <li>
-                  <Tag>AI Usability</Tag>
-                </li>
-                <li>
-                  <Tag>VMS Architectures</Tag>
-                </li>
-                <li>
-                  <Tag>Empirical Evaluation</Tag>
-                </li>
+                {exp.skills.map((skill) => (
+                  <li key={skill}>
+                    <Tag>{skill}</Tag>
+                  </li>
+                ))}
               </ul>
             </Collapsible>
           </div>

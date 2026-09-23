@@ -2,35 +2,41 @@ export interface ExperienceItem {
   id: string;
   role: string;
   organization: string;
-  department?: string;
+  employmentType: string;
   location: string;
-  advisor?: string;
+  mode: string;
   period: string;
   current: boolean;
-  focus: string;
+  advisor?: string;
+  description: string;
   highlights: string[];
-  deliverables?: string[];
+  skills: string[];
 }
 
 export const experiences: ExperienceItem[] = [
   {
-    id: "vit-research-intern",
-    role: "Research Intern",
-    organization: "Vishwakarma Institute of Technology (VIT Pune)",
-    department: "Department of Computer Engineering",
-    location: "Pune, India",
-    advisor: "Prof. Ganesh Bhutkar",
-    period: "Present",
+    id: "acm-ai-researcher",
+    role: "Artificial Intelligence Researcher",
+    organization: "ACM, Association for Computing Machinery",
+    employmentType: "Internship",
+    location: "Pune District, Maharashtra, India",
+    mode: "Hybrid",
+    period: "Jun 2026 – Present",
     current: true,
-    focus: "Usability of AI ICT Applications",
+    advisor: "Prof. Ganesh Bhutkar",
+    description:
+      "Working on research involving Human-Computer Interaction, Human-Centered AI, usability, and emerging AI-enabled ICT applications.",
     highlights: [
-      "Investigating usability evaluation frameworks and quantitative human-interaction metrics in AI-assisted information and communication technology (ICT) systems.",
-      "Developing experimental protocols and evaluation rubrics for an upcoming research presentation at CHIuXD 2026 (Indonesia, December 2026).",
-      "Conducted a systematic synthesis of a 60-paper VMS research corpus (2015–2025) analyzing Video Management Systems, edge video inference topologies, and streaming pipeline latencies."
+      "Working on research involving Human-Computer Interaction, Human-Centered AI, usability, and emerging AI-enabled ICT applications.",
+      "Conducting research under Prof. Ganesh Bhutkar in the ACM context on quantitative interaction metrics, usability evaluation rubrics, and protocol evaluations.",
+      "Formulating experimental evaluation rubrics and protocol benchmarks for AI-augmented human interactions."
     ],
-    deliverables: [
-      "Scheduled CHIuXD 2026 presentation (Indonesia, December 2026)",
-      "Structured literature-review corpus of 60 VMS-related academic papers (2015–2025)"
+    skills: [
+      "Artificial Intelligence (AI)",
+      "Machine Learning",
+      "Human-Centered AI",
+      "Human-Computer Interaction (HCI)",
+      "Usability"
     ]
   }
 ];

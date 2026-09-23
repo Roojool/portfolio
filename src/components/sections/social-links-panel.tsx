@@ -2,11 +2,12 @@ import * as React from "react";
 import { Rss, Fingerprint } from "lucide-react";
 import { Panel, PanelContent } from "@/components/ui/panel";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import {
   HandwrittenArrow,
   HandwrittenNote,
 } from "@/components/handwritten-note";
-import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
+import { GithubIcon, LinkedinIcon, GoogleScholarIcon } from "@/components/ui/icons";
 import { SITE_INFO } from "@/config/site";
 
 const SOCIAL_ITEMS = [
@@ -21,6 +22,12 @@ const SOCIAL_ITEMS = [
     handle: "rujul-talekar",
     href: SITE_INFO.linkedinUrl,
     icon: <LinkedinIcon className="size-4" />,
+  },
+  {
+    title: "Google Scholar",
+    handle: "RWQN9K8AAAAJ",
+    href: SITE_INFO.scholarUrl,
+    icon: <GoogleScholarIcon className="size-4" />,
   },
   {
     title: "ORCID",
@@ -45,24 +52,32 @@ export function SocialLinksPanel() {
         <ul className="flex flex-wrap gap-2">
           {SOCIAL_ITEMS.map((item) => (
             <li key={item.title}>
-              <Button
-                className="text-foreground/80 shadow-none [&_svg:not([class*='size-'])]:size-4.5"
-                variant="outline"
-                size="icon-sm"
-                nativeButton={false}
-                render={
-                  <a
-                    href={item.href}
-                    target={item.href.startsWith("http") ? "_blank" : undefined}
-                    rel="noopener noreferrer"
-                    aria-label={`${item.title} (${item.handle})`}
-                    title={`${item.title} (${item.handle})`}
-                  >
-                    {item.icon}
-                    <span className="sr-only">{item.title}</span>
-                  </a>
-                }
-              />
+              <Tooltip>
+                <TooltipTrigger
+                  render={
+                    <Button
+                      className="text-foreground/80 shadow-none hover:text-foreground hover:bg-accent-muted [&_svg:not([class*='size-'])]:size-4"
+                      variant="outline"
+                      size="icon-sm"
+                      nativeButton={false}
+                      render={
+                        <a
+                          href={item.href}
+                          target={item.href.startsWith("http") ? "_blank" : undefined}
+                          rel="noopener noreferrer"
+                          aria-label={`${item.title} (${item.handle})`}
+                        >
+                          {item.icon}
+                          <span className="sr-only">{item.title}</span>
+                        </a>
+                      }
+                    />
+                  }
+                />
+                <TooltipContent>
+                  {item.title} ({item.handle})
+                </TooltipContent>
+              </Tooltip>
             </li>
           ))}
         </ul>

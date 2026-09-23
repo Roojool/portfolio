@@ -5,12 +5,14 @@ export const SITE_URL =
 export const SITE_INFO = {
   name: "Rujul Talekar",
   title: "AI Researcher × Systems Builder",
+  tagline: "AI research, systems engineering, and experimental software.",
   headline:
-    "Computer Engineering undergraduate and researcher working at the intersection of Human-Centered AI, Video Management Systems, edge video analytics, and cellular transport dynamics.",
+    "AI research, systems engineering, and experimental software. Working on Human-Centered AI, Video Management Systems, edge video analytics, and cellular transport dynamics.",
   url: SITE_URL,
   domain: "portfolio-sigma-gray-12.vercel.app",
   githubUsername: "Roojool",
   sourceCodeUrl: "https://github.com/Roojool/portfolio",
+  scholarUrl: "https://scholar.google.com/citations?user=RWQN9K8AAAAJ&hl=en",
   orcid: "0009-0008-5608-1512",
   orcidUrl: "https://orcid.org/0009-0008-5608-1512",
   linkedinUrl: "https://www.linkedin.com/in/rujul-talekar/",

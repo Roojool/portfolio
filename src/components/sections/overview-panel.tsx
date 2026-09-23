@@ -1,6 +1,7 @@
 import * as React from "react";
-import { Briefcase, MapPin, Link as LinkIcon, Fingerprint } from "lucide-react";
+import { Briefcase, MapPin, Link as LinkIcon } from "lucide-react";
 import { Panel, PanelContent } from "@/components/ui/panel";
+import { GoogleScholarIcon } from "@/components/ui/icons";
 import {
   IntroItem,
   IntroItemIcon,
@@ -16,38 +17,53 @@ export function OverviewPanel() {
       <h2 className="sr-only">Overview</h2>
 
       <PanelContent className="grid gap-x-4 gap-y-2.5 sm:grid-cols-2">
-        {/* Role & Affiliation */}
+        {/* 1. Role & Affiliation */}
         <IntroItem>
           <IntroItemIcon>
-            <Briefcase />
+            <Briefcase className="size-4" />
           </IntroItemIcon>
           <IntroItemContent>
-            <span>Research Intern · VIT Pune</span>
+            <span>Artificial Intelligence Researcher · ACM</span>
           </IntroItemContent>
         </IntroItem>
 
-        {/* Location */}
+        {/* 2. Location */}
         <IntroItem>
           <IntroItemIcon>
-            <MapPin />
+            <MapPin className="size-4" />
           </IntroItemIcon>
           <IntroItemContent>
             <IntroItemLink
-              href="https://www.google.com/maps/search/?api=1&query=Pune%2C+Maharashtra%2C+India"
-              aria-label="Location: Pune, Maharashtra, India"
+              href="https://www.google.com/maps/search/?api=1&query=Pune+District%2C+Maharashtra%2C+India"
+              aria-label="Location: Pune District, Maharashtra, India"
             >
-              Pune, Maharashtra, India
+              Pune District, Maharashtra, India
             </IntroItemLink>
           </IntroItemContent>
         </IntroItem>
 
-        {/* Current Local Time */}
+        {/* 3. Current Local Time */}
         <CurrentLocalTimeItem timeZone="Asia/Kolkata" />
 
-        {/* Portfolio Site URL */}
+        {/* 4. Google Scholar */}
         <IntroItem>
           <IntroItemIcon>
-            <LinkIcon />
+            <GoogleScholarIcon className="size-4" />
+          </IntroItemIcon>
+          <IntroItemContent>
+            <IntroItemLink
+              href={SITE_INFO.scholarUrl}
+              aria-label="Google Scholar Profile"
+            >
+              Google Scholar
+            </IntroItemLink>
+          </IntroItemContent>
+        </IntroItem>
+
+        {/* 5. Portfolio Site URL */}
+        <IntroItem className="sm:col-span-2">
+          <IntroItemIcon>
+            <LinkIcon className="size-4" />
           </IntroItemIcon>
           <IntroItemContent>
             <IntroItemLink
@@ -55,21 +71,6 @@ export function OverviewPanel() {
               aria-label={`Personal website: ${SITE_INFO.domain}`}
             >
               {SITE_INFO.domain}
-            </IntroItemLink>
-          </IntroItemContent>
-        </IntroItem>
-
-        {/* Verified ORCID */}
-        <IntroItem>
-          <IntroItemIcon>
-            <Fingerprint />
-          </IntroItemIcon>
-          <IntroItemContent>
-            <IntroItemLink
-              href={SITE_INFO.orcidUrl}
-              aria-label={`ORCID: ${SITE_INFO.orcid}`}
-            >
-              ORCID: {SITE_INFO.orcid}
             </IntroItemLink>
           </IntroItemContent>
         </IntroItem>

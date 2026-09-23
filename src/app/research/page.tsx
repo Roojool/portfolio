@@ -27,7 +27,7 @@ export default function ResearchPage() {
         <PanelHeader>
           <PanelTitle as="h1">Research Dossiers</PanelTitle>
           <PanelDescription>
-            Systematic investigation catalog conducted by {SITE_INFO.name} at Vishwakarma Institute of Technology (VIT Pune) and experimental research sandboxes.
+            Systematic investigation catalog conducted by {SITE_INFO.name} across Human-Centered AI, video management systems, edge video analytics, and network telemetry.
           </PanelDescription>
         </PanelHeader>
 
@@ -41,7 +41,7 @@ export default function ResearchPage() {
                 <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
                   <div>
                     <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-wider block mb-0.5">
-                      {vector.category}
+                      {vector.domain}
                     </span>
                     <h2 className="text-base sm:text-lg font-medium text-foreground">
                       {vector.title}
@@ -63,32 +63,32 @@ export default function ResearchPage() {
                   </span>
                 </div>
 
-                {/* Research Question */}
-                <div className="p-3 rounded bg-muted/40 border border-line text-xs font-mono">
-                  <span className="text-[10px] uppercase text-muted-foreground block mb-1 font-semibold">
-                    Investigative Research Question
+                {/* Summary */}
+                <div className="p-3 rounded bg-muted/30 border border-line text-xs font-sans">
+                  <span className="text-[10px] font-mono uppercase text-muted-foreground block mb-1 font-semibold">
+                    Core Focus
                   </span>
-                  <p className="text-foreground/90 italic font-sans text-xs sm:text-sm">
-                    &ldquo;{vector.researchQuestion}&rdquo;
+                  <p className="text-foreground/90 leading-relaxed text-xs sm:text-sm">
+                    {vector.summary}
                   </p>
                 </div>
 
-                {/* Operational State */}
+                {/* Operational State / Current Work */}
                 <div className="text-xs text-muted-foreground leading-relaxed">
                   <span className="font-mono text-[10px] uppercase text-foreground/70 block mb-0.5">
-                    Operational State
+                    Current Work
                   </span>
-                  <p className="text-foreground/80">{vector.currentState}</p>
+                  <p className="text-foreground/80 font-sans">{vector.currentWork}</p>
                 </div>
 
-                {/* Key Deliverables */}
-                {vector.keyOutputs.length > 0 && (
+                {/* Key Outputs */}
+                {vector.outputs.length > 0 && (
                   <div className="text-xs space-y-1">
                     <span className="font-mono text-[10px] uppercase text-foreground/70 block mb-0.5">
-                      Key Deliverables & Milestones
+                      Outputs & Milestones
                     </span>
-                    <ul className="space-y-1 text-muted-foreground list-disc list-inside">
-                      {vector.keyOutputs.map((out, idx) => (
+                    <ul className="space-y-1 text-muted-foreground list-disc list-inside font-mono text-xs">
+                      {vector.outputs.map((out, idx) => (
                         <li key={idx}>{out}</li>
                       ))}
                     </ul>

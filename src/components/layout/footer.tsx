@@ -2,11 +2,14 @@ import * as React from "react";
 import Link from "next/link";
 import { Rss, Fingerprint } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
+import { GithubIcon, LinkedinIcon, GoogleScholarIcon } from "@/components/ui/icons";
 import { RujulMark } from "@/components/brand/brand-marks";
 import { RujulFooterInteractiveLogotype } from "./footer-brand";
 import { getBuildInfo, getStack } from "@/lib/build-info";
 import { SITE_INFO } from "@/config/site";
+import { researchVectors } from "@/data/research";
+import { publications } from "@/data/publications";
+import { patents } from "@/data/patents";
 import { cn } from "@/lib/utils";
 
 const INSPIRED_BY = [
@@ -41,7 +44,7 @@ export function Footer() {
             </span>
           </div>
 
-          {/* 4x4 Technical Metadata Grid */}
+          {/* Technical Metadata Grid */}
           <dl className="grid grid-cols-2 gap-px bg-line font-mono md:grid-cols-4">
             <Field label="Crafted by">
               <span className="font-medium">{SITE_INFO.name}</span>
@@ -70,12 +73,22 @@ export function Footer() {
               <time dateTime={build.date}>{build.date}</time>
             </Field>
 
-            <Field label="Research">5 active vectors</Field>
-
             <Field label="Deployed on">
               <span className="font-sans flex items-center gap-1.5" aria-hidden>
                 ▲ <span>Vercel</span>
               </span>
+            </Field>
+
+            <Field label="Research">
+              <span>{researchVectors.length} vectors</span>
+            </Field>
+
+            <Field label="Publications">
+              <span>{publications.length} papers</span>
+            </Field>
+
+            <Field label="IP">
+              <span>{patents.length} records</span>
             </Field>
 
             <Field label="Source code">
@@ -123,8 +136,18 @@ export function Footer() {
               </ul>
             </Field>
 
-            <Field label="Identity">
-              <ul className="flex flex-col gap-0.5">
+            <Field className="col-span-1 md:col-span-3" label="Identity">
+              <ul className="flex flex-wrap gap-x-4 gap-y-1">
+                <li>
+                  <a
+                    className="link-underline"
+                    href={SITE_INFO.scholarUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Google Scholar
+                  </a>
+                </li>
                 <li>
                   <a
                     className="link-underline"
@@ -202,6 +225,21 @@ export function Footer() {
             aria-label="LinkedIn Profile"
           >
             <LinkedinIcon className="size-4" />
+          </a>
+
+          <Separator
+            orientation="vertical"
+            className="data-vertical:h-4 data-vertical:self-center"
+          />
+
+          <a
+            className="flex items-center transition-[color] hover:text-foreground"
+            href={SITE_INFO.scholarUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Google Scholar Profile"
+          >
+            <GoogleScholarIcon className="size-4" />
           </a>
 
           <Separator

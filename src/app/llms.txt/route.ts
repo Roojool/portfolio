@@ -11,8 +11,8 @@ export async function GET() {
   const content = `# ${SITE_INFO.name} — ${SITE_INFO.title}
 
 > Personal research portfolio & engineering dossier.
-> Computer Engineering undergraduate at Vishwakarma Institute of Technology (VIT Pune).
-> Location: Pune, Maharashtra, India.
+> Computer Engineering undergraduate at Vishwakarma Institute of Technology (VIT Pune) and AI Researcher with ACM.
+> Location: Pune District, Maharashtra, India.
 > Identity: AI Researcher × Systems Builder
 
 ## Core Identity & Overview
@@ -25,11 +25,11 @@ Configured State Is Not Wire Behavior. Systems and models must be validated thro
 ${researchVectors
   .map(
     (v) => `### ${v.title} [${v.status}]
-- Category: ${v.category}
-- Research Question: ${v.researchQuestion}
-- Current State: ${v.currentState}
+- Domain: ${v.domain}
+- Core Focus: ${v.summary}
+- Current Work: ${v.currentWork}
 - Methods: ${v.methods.join(", ")}
-- Tooling: ${v.tooling.join(", ")}`
+- Outputs: ${v.outputs.join(", ")}`
   )
   .join("\n\n")}
 
@@ -50,10 +50,12 @@ ${publications
   .map(
     (pub) => `### ${pub.title} (${pub.year})
 - Authors: ${pub.authors.join(", ")}
-${pub.venue ? `- Venue: ${pub.venue}` : ""}
+- Venue: ${pub.venue}
+- Conference Dates: ${pub.conferenceDates}
 ${pub.publisher ? `- Publisher: ${pub.publisher}` : ""}
 ${pub.pages ? `- Pages: ${pub.pages}` : ""}
-- Status: ${pub.status}`
+- Status: ${pub.status}
+- Summary: ${pub.summary}`
   )
   .join("\n\n")}
 
@@ -61,10 +63,10 @@ ${pub.pages ? `- Pages: ${pub.pages}` : ""}
 ${patents
   .map(
     (pat) => `### ${pat.title} [${pat.status}]
-- Field: ${pat.field}
-- Filing Date: ${pat.filingDate}
-- Publication Date: ${pat.publicationDate}
-- IPC: ${pat.ipcClassification.join(", ")}`
+- Identifier: ${pat.identifier}
+- Jurisdiction: ${pat.jurisdiction}
+- Date: ${pat.date} (${pat.dateLabel})
+- Summary: ${pat.summary}`
   )
   .join("\n\n")}
 
@@ -77,10 +79,11 @@ ${patents
 - RSS Feed: ${SITE_URL}/feed.xml
 
 ## Contact & Identifiers
+- Google Scholar: ${SITE_INFO.scholarUrl}
 - GitHub: ${SITE_INFO.githubUrl}
 - LinkedIn: ${SITE_INFO.linkedinUrl}
 - ORCID: ${SITE_INFO.orcidUrl}
-- Location: Pune, Maharashtra, India (UTC+05:30)
+- Location: Pune District, Maharashtra, India (UTC+05:30)
 `;
 
   return new NextResponse(content, {
