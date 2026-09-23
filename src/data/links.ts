@@ -30,6 +30,12 @@ export const socialLinks = {
     label: "ORCID",
     id: "0009-0008-5608-1512"
   },
+  x: {
+    name: "X",
+    url: "https://x.com/Roojool1",
+    label: "X (Twitter)",
+    username: "Roojool1"
+  },
   email: null,
   resume: null
 };
@@ -46,6 +52,12 @@ export const primaryLinks: SocialLink[] = [
     url: "https://www.linkedin.com/in/rujul-talekar/",
     label: "LinkedIn",
     username: "rujul-talekar"
+  },
+  {
+    name: "X",
+    url: "https://x.com/Roojool1",
+    label: "X",
+    username: "Roojool1"
   },
   {
     name: "Google Scholar",

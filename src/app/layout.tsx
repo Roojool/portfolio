@@ -38,8 +38,9 @@ export const metadata: Metadata = {
   authors: [{ name: SITE_INFO.name, url: SITE_INFO.githubUrl }],
   creator: SITE_INFO.name,
   icons: {
-    icon: "/favicon.svg",
-    apple: "/icon.svg",
+    icon: "/rt-favicon-v2.svg",
+    shortcut: "/rt-favicon-v2.svg",
+    apple: "/rt-icon-v2.svg",
   },
   manifest: "/manifest.webmanifest",
   openGraph: {
@@ -54,6 +55,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${SITE_INFO.name} — ${SITE_INFO.title}`,
     description: SITE_INFO.headline,
+    creator: SITE_INFO.xHandle,
   },
 };
 
@@ -74,6 +76,10 @@ export default function RootLayout({
     "@type": "Person",
     name: SITE_INFO.name,
     jobTitle: SITE_INFO.title,
+    worksFor: {
+      "@type": "Organization",
+      name: "ACM, Association for Computing Machinery",
+    },
     affiliation: {
       "@type": "EducationalOrganization",
       name: profile.institution,
@@ -88,7 +94,9 @@ export default function RootLayout({
     sameAs: [
       SITE_INFO.githubUrl,
       SITE_INFO.linkedinUrl,
+      SITE_INFO.scholarUrl,
       SITE_INFO.orcidUrl,
+      SITE_INFO.xUrl,
     ],
     knowsAbout: [
       "Human-Centered AI",

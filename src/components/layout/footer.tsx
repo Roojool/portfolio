@@ -2,9 +2,8 @@ import * as React from "react";
 import Link from "next/link";
 import { Rss, Fingerprint } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { GithubIcon, LinkedinIcon, GoogleScholarIcon } from "@/components/ui/icons";
+import { GithubIcon, LinkedinIcon, GoogleScholarIcon, XIcon } from "@/components/ui/icons";
 import { RujulMark } from "@/components/brand/brand-marks";
-import { RujulFooterInteractiveLogotype } from "./footer-brand";
 import { getBuildInfo, getStack } from "@/lib/build-info";
 import { SITE_INFO } from "@/config/site";
 import { researchVectors } from "@/data/research";
@@ -162,6 +161,16 @@ export function Footer() {
                     LinkedIn
                   </a>
                 </li>
+                <li>
+                  <a
+                    className="link-underline"
+                    href={SITE_INFO.xUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    X
+                  </a>
+                </li>
               </ul>
             </Field>
 
@@ -212,6 +221,21 @@ export function Footer() {
 
           <a
             className="flex items-center transition-[color] hover:text-foreground"
+            href={SITE_INFO.xUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="X Profile"
+          >
+            <XIcon className="size-4" />
+          </a>
+
+          <Separator
+            orientation="vertical"
+            className="data-vertical:h-4 data-vertical:self-center"
+          />
+
+          <a
+            className="flex items-center transition-[color] hover:text-foreground"
             href={SITE_INFO.scholarUrl}
             target="_blank"
             rel="noopener noreferrer"
@@ -250,10 +274,7 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Gigantic Interactive Outline RUJUL Logotype */}
-      <RujulFooterInteractiveLogotype />
-
-      <div className="h-8" />
+      <div className="h-6" />
       <div className="pb-[env(safe-area-inset-bottom,0)]" />
     </footer>
   );

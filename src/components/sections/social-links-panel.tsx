@@ -7,7 +7,7 @@ import {
   HandwrittenArrow,
   HandwrittenNote,
 } from "@/components/handwritten-note";
-import { GithubIcon, LinkedinIcon, GoogleScholarIcon } from "@/components/ui/icons";
+import { GithubIcon, LinkedinIcon, GoogleScholarIcon, XIcon } from "@/components/ui/icons";
 import { SITE_INFO } from "@/config/site";
 
 const SOCIAL_ITEMS = [
@@ -22,6 +22,12 @@ const SOCIAL_ITEMS = [
     handle: "rujul-talekar",
     href: SITE_INFO.linkedinUrl,
     icon: <LinkedinIcon className="size-4" />,
+  },
+  {
+    title: "X",
+    handle: SITE_INFO.xHandle,
+    href: SITE_INFO.xUrl,
+    icon: <XIcon className="size-4" />,
   },
   {
     title: "Google Scholar",

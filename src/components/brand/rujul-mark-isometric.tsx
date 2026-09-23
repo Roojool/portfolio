@@ -12,19 +12,20 @@ import {
   useTransform,
 } from "motion/react";
 
-const transition: Transition = {
+const tapTransition: Transition = {
   type: "spring",
-  mass: 0.5,
-  damping: 18,
-  stiffness: 200,
+  mass: 0.3,
+  damping: 15,
+  stiffness: 300,
 };
 
 /**
- * RujulMarkIsometric: Refined architectural 3D isometric RT wireframe mark.
- * Features an unmistakable, balanced dual-mass silhouette:
- * - 'R' (left): Columnar spine, cantilevered upper facet loop with inner counter void, and grounded diagonal leg.
- * - 'T' (right): Symmetrical cantilever lintel spanning an anchored central stem.
- * Enhanced with subtle diagonal hatching, generous negative space, and spring-driven specular cursor highlight.
+ * RujulMarkIsometric: Canonical architectural 3D axonometric RT wireframe mark.
+ * Derived directly from the modular 2D RT logo geometry in `brand-marks.tsx`:
+ * - 'R' (left): Columnar spine, cantilevered upper facet loop with inner counter void, grounded diagonal leg.
+ * - 'T' (right): Balanced horizontal cantilever crossbar spanning an anchored central stem.
+ * Single coherent 3D projection (30° extrusion) with 45° diagonal top-face hatch,
+ * solid architectural background occlusion, and scoped cursor-tracking specular highlight.
  */
 export function RujulMarkIsometric() {
   const id = useId();
@@ -54,18 +55,45 @@ export function RujulMarkIsometric() {
     mass: 0.1,
   });
 
+  // Track cursor scoped to the SVG's bounding client rect
   useEffect(() => {
     if (shouldReduceMotion || !isInView) return;
     if (window.matchMedia("(hover: none)").matches) return;
 
     const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX / window.innerWidth);
-      mouseY.set(e.clientY / window.innerHeight);
+      if (!ref.current) return;
+      const rect = ref.current.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+
+      // Track when near or over the visualizer, gently reset when far away
+      if (x >= -0.2 && x <= 1.2 && y >= -0.2 && y <= 1.2) {
+        mouseX.set(Math.max(0, Math.min(1, x)));
+        mouseY.set(Math.max(0, Math.min(1, y)));
+      } else {
+        mouseX.set(0.5);
+        mouseY.set(0.5);
+      }
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [shouldReduceMotion, isInView, mouseX, mouseY]);
+
+  const handlePointerMove = (e: React.PointerEvent<SVGSVGElement>) => {
+    if (shouldReduceMotion) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    mouseX.set(Math.max(0, Math.min(1, x)));
+    mouseY.set(Math.max(0, Math.min(1, y)));
+  };
+
+  const handlePointerLeave = () => {
+    mouseX.set(0.5);
+    mouseY.set(0.5);
+  };
 
   return (
     <motion.svg
@@ -75,11 +103,13 @@ export function RujulMarkIsometric() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden
-      initial="normal"
-      whileTap="pressed"
+      whileTap={{ scale: 0.985, y: 2 }}
+      transition={tapTransition}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
     >
       <defs>
-        {/* Repeating 45° diagonal hatch pattern for top isometric faces */}
+        {/* Repeating 45° diagonal hatch pattern for top horizontal faces */}
         <pattern
           id={ids.facePattern}
           x="0"
@@ -95,95 +125,59 @@ export function RujulMarkIsometric() {
           />
         </pattern>
 
-        {/* Top-face polygons for the RT architectural wireframe */}
-        <motion.g
-          id={ids.faceFill}
-          variants={{
-            normal: { y: 0 },
-            pressed: { y: 14 },
-          }}
-          transition={transition}
-        >
-          {/* 'R' Spine Top Face */}
-          <path d="M66 68 L111 94 L75 115 L30 89 Z" />
-          {/* 'R' Loop Top Beam Face */}
-          <path d="M111 94 L211 152 L175 173 L75 115 Z" />
-          {/* 'R' Mid Crossbar Face */}
-          <path d="M75 155 L175 213 L139 234 L39 176 Z" />
-          {/* 'R' Grounded Diagonal Leg Face */}
-          <path d="M175 259 L215 282 L179 303 L139 280 Z" />
+        {/* Top-face polygons for the canonical RT architectural wireframe */}
+        <g id={ids.faceFill}>
+          {/* 'R' Top Horizontal Face */}
+          <path d="M 68.9 84 L 230.2 84 L 271.8 60 L 110.5 60 Z" />
+          {/* 'T' Top Horizontal Face */}
+          <path d="M 283.9 84 L 445.2 84 L 486.8 60 L 325.5 60 Z" />
+          {/* 'R' Inner Counter Shelf Face */}
+          <path d="M 122.6 184.8 L 176.4 184.8 L 218 160.8 L 164.2 160.8 Z" />
+        </g>
 
-          {/* 'T' Cantilever Lintel Top Face */}
-          <path d="M290 60 L510 187 L474 208 L254 81 Z" />
-        </motion.g>
-
-        {/* Wireframe edges */}
-        <motion.path
+        {/* Wireframe edges: single canonical coordinate definition */}
+        <path
           id={ids.stroke}
-          variants={{
-            normal: {
-              d: [
-                // 'R' Vertical Column Spine
-                "M30 89 V250 L66 229 V68 L30 89 Z",
-                "M111 94 L75 115 L30 89",
-                "M75 115 V276 L30 250",
-                "M75 276 L111 255 V94",
-                // 'R' Upper Facet Loop
-                "M111 94 L211 152 V192 L175 213 V173 L75 115",
-                "M211 152 L175 173",
-                "M211 192 L175 213",
-                // 'R' Middle Crossbar Bridge
-                "M175 213 L75 155 V187 L175 245 V213 Z",
-                // 'R' Grounded Diagonal Leg
-                "M175 213 L215 282 V302 L179 323 L139 254",
-                "M215 282 L179 303 L139 280",
-                "M179 303 V323",
+          d={[
+            // 'R' Front Outer & Inner Void
+            "M 68.9 84 L 230.2 84 L 230.2 191.5 L 203.3 191.5 L 230.2 299 L 176.4 299 L 149.5 218.4 L 122.6 218.4 L 122.6 299 L 68.9 299 Z",
+            "M 122.6 131 L 176.4 131 L 176.4 184.8 L 122.6 184.8 Z",
 
-                // 'T' Cantilever Lintel Span
-                "M290 60 L510 187 L474 208 L254 81 Z",
-                "M254 81 V113 L474 240 V208",
-                "M510 187 V219 L474 240",
-                "M254 113 L290 92 V60",
-                // 'T' Centered Supporting Column
-                "M344 165 V265 L394 294 V194",
-                "M344 265 L380 244 V144",
-                "M394 294 L430 273 V173",
-              ].join(" "),
-            },
-            pressed: {
-              d: [
-                // 'R' Vertical Column Spine (pressed)
-                "M30 103 V264 L66 243 V82 L30 103 Z",
-                "M111 108 L75 129 L30 103",
-                "M75 129 V290 L30 264",
-                "M75 290 L111 269 V108",
-                // 'R' Upper Facet Loop (pressed)
-                "M111 108 L211 166 V206 L175 227 V187 L75 129",
-                "M211 166 L175 187",
-                "M211 206 L175 227",
-                // 'R' Middle Crossbar Bridge (pressed)
-                "M175 227 L75 169 V201 L175 259 V227 Z",
-                // 'R' Grounded Diagonal Leg (pressed)
-                "M175 227 L215 296 V316 L179 337 L139 268",
-                "M215 296 L179 317 L139 294",
-                "M179 317 V337",
+            // 'T' Front Monogram Contour
+            "M 283.9 84 L 445.2 84 L 445.2 131 L 391.4 131 L 391.4 299 L 337.7 299 L 337.7 131 L 283.9 131 Z",
 
-                // 'T' Cantilever Lintel Span (pressed)
-                "M290 74 L510 201 L474 222 L254 95 Z",
-                "M254 95 V127 L474 254 V222",
-                "M510 201 V233 L474 254",
-                "M254 127 L290 106 V74",
-                // 'T' Centered Supporting Column (pressed)
-                "M344 179 V279 L394 308 V208",
-                "M344 279 L380 258 V158",
-                "M394 308 L430 287 V187",
-              ].join(" "),
-            },
-          }}
-          transition={transition}
+            // Top Back Edges
+            "M 110.5 60 L 271.8 60",
+            "M 325.5 60 L 486.8 60",
+            "M 164.2 160.8 L 218 160.8",
+
+            // Side Right Back Edges
+            "M 271.8 60 L 271.8 167.5",
+            "M 244.9 167.5 L 271.8 275",
+            "M 164.2 194.4 L 164.2 275",
+            "M 486.8 60 L 486.8 107",
+            "M 433 107 L 433 275",
+            "M 164.2 107 L 164.2 160.8",
+
+            // Depth Extrusion Connectors (30° projection)
+            "M 68.9 84 L 110.5 60",
+            "M 230.2 84 L 271.8 60",
+            "M 230.2 191.5 L 271.8 167.5",
+            "M 203.3 191.5 L 244.9 167.5",
+            "M 230.2 299 L 271.8 275",
+            "M 122.6 299 L 164.2 275",
+            "M 283.9 84 L 325.5 60",
+            "M 445.2 84 L 486.8 60",
+            "M 445.2 131 L 486.8 107",
+            "M 391.4 131 L 433 107",
+            "M 391.4 299 L 433 275",
+            "M 122.6 131 L 164.2 107",
+            "M 122.6 184.8 L 164.2 160.8",
+            "M 176.4 184.8 L 218 160.8",
+          ].join(" ")}
         />
 
-        {/* Dynamic mouse specular spotlight gradient */}
+        {/* Dynamic cursor specular spotlight gradient */}
         <motion.radialGradient
           id={ids.radialGradient}
           cx={cx}
@@ -204,82 +198,38 @@ export function RujulMarkIsometric() {
         </motion.radialGradient>
       </defs>
 
-      {/* Subtle isometric coordinate construction guidelines */}
+      {/* Subtle architectural coordinate construction guidelines */}
       <g className="stroke-line/40" strokeWidth="1" strokeDasharray="3 3">
-        <path d="M-100 330 L550 -45" />
+        <path d="M-50 250 L600 -125" />
         <path d="M-40 370 L600 0" />
         <path d="M600 370 L-80 -20" />
       </g>
 
-      {/* Solid side depth extrusion fills for architectural occlusion */}
-      <g className="fill-background" fillRule="evenodd" clipRule="evenodd">
-        {/* 'T' Stem Front */}
-        <motion.path
-          variants={{
-            normal: { d: "M344 165 V265 L394 294 V194 Z" },
-            pressed: { d: "M344 179 V279 L394 308 V208 Z" },
-          }}
-          transition={transition}
-        />
-        {/* 'T' Stem Left */}
-        <motion.path
-          variants={{
-            normal: { d: "M344 165 L380 144 V244 L344 265 Z" },
-            pressed: { d: "M344 179 L380 158 V258 L344 279 Z" },
-          }}
-          transition={transition}
-        />
-        {/* 'T' Lintel Front */}
-        <motion.path
-          variants={{
-            normal: { d: "M254 81 V113 L474 240 V208 Z" },
-            pressed: { d: "M254 95 V127 L474 254 V222 Z" },
-          }}
-          transition={transition}
-        />
-        {/* 'T' Lintel Right Face */}
-        <motion.path
-          variants={{
-            normal: { d: "M474 208 V240 L510 219 V187 Z" },
-            pressed: { d: "M474 222 V254 L510 233 V201 Z" },
-          }}
-          transition={transition}
-        />
-        {/* 'R' Spine Front Face */}
-        <motion.path
-          variants={{
-            normal: { d: "M30 89 V250 L75 276 V115 Z" },
-            pressed: { d: "M30 103 V264 L75 290 V129 Z" },
-          }}
-          transition={transition}
-        />
-        {/* 'R' Spine Right Face */}
-        <motion.path
-          variants={{
-            normal: { d: "M75 115 V276 L111 255 V94 Z" },
-            pressed: { d: "M75 129 V290 L111 269 V108 Z" },
-          }}
-          transition={transition}
-        />
-        {/* 'R' Loop Front Face */}
-        <motion.path
-          variants={{
-            normal: { d: "M175 173 V213 L211 192 V152 Z" },
-            pressed: { d: "M175 187 V227 L211 206 V166 Z" },
-          }}
-          transition={transition}
-        />
-        {/* 'R' Leg Front Face */}
-        <motion.path
-          variants={{
-            normal: { d: "M175 213 L215 282 V302 L175 233 Z" },
-            pressed: { d: "M175 227 L215 296 V316 L175 247 Z" },
-          }}
-          transition={transition}
-        />
+      {/* Side depth extrusion fills for architectural occlusion */}
+      <g className="fill-background">
+        {/* 'R' Outer Loop Right Face */}
+        <path d="M 230.2 84 L 271.8 60 L 271.8 167.5 L 230.2 191.5 Z" />
+        {/* 'R' Diagonal Leg Right Face */}
+        <path d="M 203.3 191.5 L 244.9 167.5 L 271.8 275 L 230.2 299 Z" />
+        {/* 'R' Stem Right Face */}
+        <path d="M 122.6 218.4 L 164.2 194.4 L 164.2 275 L 122.6 299 Z" />
+        {/* 'T' Lintel Crossbar Right Face */}
+        <path d="M 445.2 84 L 486.8 60 L 486.8 107 L 445.2 131 Z" />
+        {/* 'T' Stem Right Face */}
+        <path d="M 391.4 131 L 433 107 L 433 275 L 391.4 299 Z" />
+        {/* 'R' Inner Hole Left Wall */}
+        <path d="M 122.6 131 L 164.2 107 L 164.2 160.8 L 122.6 184.8 Z" />
       </g>
 
-      {/* Top faces with background underlay + diagonal hatch */}
+      {/* Front faces solid occlusion (hides internal wires behind front faces) */}
+      <g className="fill-background" fillRule="evenodd" clipRule="evenodd">
+        {/* 'R' Front Face */}
+        <path d="M 68.9 84 L 230.2 84 L 230.2 191.5 L 203.3 191.5 L 230.2 299 L 176.4 299 L 149.5 218.4 L 122.6 218.4 L 122.6 299 L 68.9 299 Z M 122.6 131 L 176.4 131 L 176.4 184.8 L 122.6 184.8 Z" />
+        {/* 'T' Front Face */}
+        <path d="M 283.9 84 L 445.2 84 L 445.2 131 L 391.4 131 L 391.4 299 L 337.7 299 L 337.7 131 L 283.9 131 Z" />
+      </g>
+
+      {/* Top horizontal faces with background underlay + diagonal hatch */}
       <use href={`#${ids.faceFill}`} className="fill-background" />
       <use href={`#${ids.faceFill}`} fill={`url(#${ids.facePattern})`} />
 

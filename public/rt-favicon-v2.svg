@@ -1,6 +1,5 @@
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="32" height="32" rx="7" fill="#090a0f"/>
-  <rect x="0.75" y="0.75" width="30.5" height="30.5" rx="6.25" stroke="#27272a" stroke-width="1.5"/>
+  <rect width="32" height="32" rx="6" fill="#09090b"/>
   <g transform="matrix(0.046875 0 0 0.046875 4 10)">
     <path fill="#fafafa" fill-rule="evenodd" clip-rule="evenodd" d="M32 0h192v128h-32l32 128h-64l-32-96H96v96H32V0zm64 56h64v64H96V56zM288 0h192v56h-64v200h-64V56h-64V0z"/>
   </g>

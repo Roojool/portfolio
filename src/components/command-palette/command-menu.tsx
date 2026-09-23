@@ -18,7 +18,7 @@ import {
   Search,
   Command as CommandIcon,
 } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
+import { GithubIcon, LinkedinIcon, XIcon } from "@/components/ui/icons";
 import { Button } from "@/components/ui/button";
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
 import { SITE_INFO } from "@/config/site";
@@ -163,6 +163,16 @@ export function CommandMenu() {
                   >
                     <LinkedinIcon className="size-3.5 text-muted-foreground" />
                     <span>LinkedIn Profile</span>
+                    <ExternalLink className="size-3 text-muted-foreground ml-auto" />
+                  </Command.Item>
+                  <Command.Item
+                    onSelect={() =>
+                      runCommand(() => window.open(SITE_INFO.xUrl, "_blank"))
+                    }
+                    className="flex items-center gap-2 px-2.5 py-2 rounded text-foreground hover:bg-muted cursor-pointer"
+                  >
+                    <XIcon className="size-3.5 text-muted-foreground" />
+                    <span>X: {SITE_INFO.xHandle}</span>
                     <ExternalLink className="size-3 text-muted-foreground ml-auto" />
                   </Command.Item>
                   <Command.Item
