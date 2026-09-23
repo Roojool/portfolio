@@ -20,9 +20,11 @@ async function fetchContributions(username: string): Promise<{
     process.env.NEXT_PUBLIC_GITHUB_CONTRIBUTIONS_API_URL ||
     "https://github-contributions-api.jogruber.de/v4";
 
+  // Official GitHub GraphQL contributionCalendar can replace the third-party API later
+  // if stronger reliability or authenticated/private contribution support becomes necessary.
   try {
     const res = await fetch(`${apiUrl}/${username}?y=last`, {
-      next: { revalidate: 86400 },
+      next: { revalidate: 21600 },
       headers: { Accept: "application/json" },
       signal: AbortSignal.timeout(5000),
     });

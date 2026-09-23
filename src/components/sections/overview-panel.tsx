@@ -1,7 +1,6 @@
 import * as React from "react";
-import { Briefcase, MapPin, Link as LinkIcon } from "lucide-react";
+import { Briefcase, MapPin, FileText, Mail } from "lucide-react";
 import { Panel, PanelContent } from "@/components/ui/panel";
-import { GoogleScholarIcon } from "@/components/ui/icons";
 import {
   IntroItem,
   IntroItemIcon,
@@ -17,60 +16,65 @@ export function OverviewPanel() {
       <h2 className="sr-only">Overview</h2>
 
       <PanelContent className="grid gap-x-4 gap-y-2.5 sm:grid-cols-2">
-        {/* 1. Role & Affiliation */}
-        <IntroItem>
+        {/* 1. Role: Col 1 Row 1 on desktop; Item 1 on mobile */}
+        <IntroItem className="sm:col-start-1 sm:row-start-1">
           <IntroItemIcon>
             <Briefcase className="size-4" />
           </IntroItemIcon>
           <IntroItemContent>
-            <span>Artificial Intelligence Researcher · ACM</span>
+            <span>Artificial Intelligence Researcher · </span>
+            <IntroItemLink
+              href="https://www.acm.org/"
+              aria-label="Association for Computing Machinery (ACM)"
+            >
+              ACM
+            </IntroItemLink>
           </IntroItemContent>
         </IntroItem>
 
-        {/* 2. Location */}
-        <IntroItem>
+        {/* 2. Location: Col 2 Row 1 on desktop; Item 2 on mobile */}
+        <IntroItem className="sm:col-start-2 sm:row-start-1">
           <IntroItemIcon>
             <MapPin className="size-4" />
           </IntroItemIcon>
           <IntroItemContent>
             <IntroItemLink
-              href="https://www.google.com/maps/search/?api=1&query=Pune+District%2C+Maharashtra%2C+India"
-              aria-label="Location: Pune District, Maharashtra, India"
+              href="https://www.google.com/maps/search/?api=1&query=Pune%2C+India"
+              aria-label="Location: Pune, India"
             >
-              Pune District, Maharashtra, India
+              Pune, India
             </IntroItemLink>
           </IntroItemContent>
         </IntroItem>
 
-        {/* 3. Current Local Time */}
-        <CurrentLocalTimeItem timeZone="Asia/Kolkata" />
+        {/* 3. Current Local Time: Col 1 Row 2 on desktop; Item 3 on mobile */}
+        <div className="sm:col-start-1 sm:row-start-2">
+          <CurrentLocalTimeItem timeZone="Asia/Kolkata" />
+        </div>
 
-        {/* 4. Google Scholar */}
-        <IntroItem>
+        {/* 4. Resume: Col 2 Row 2 on desktop; Item 4 on mobile */}
+        <IntroItem className="sm:col-start-2 sm:row-start-2">
           <IntroItemIcon>
-            <GoogleScholarIcon className="size-4" />
+            <FileText className="size-4" />
           </IntroItemIcon>
           <IntroItemContent>
-            <IntroItemLink
-              href={SITE_INFO.scholarUrl}
-              aria-label="Google Scholar Profile"
-            >
-              Google Scholar
+            <IntroItemLink href="/resume" aria-label="View Resume">
+              Resume
             </IntroItemLink>
           </IntroItemContent>
         </IntroItem>
 
-        {/* 5. Portfolio Site URL */}
-        <IntroItem className="sm:col-span-2">
+        {/* 5. Email: Col 1 Row 3 on desktop; Item 5 on mobile */}
+        <IntroItem className="sm:col-start-1 sm:row-start-3">
           <IntroItemIcon>
-            <LinkIcon className="size-4" />
+            <Mail className="size-4" />
           </IntroItemIcon>
           <IntroItemContent>
             <IntroItemLink
-              href={SITE_INFO.url}
-              aria-label={`Personal website: ${SITE_INFO.domain}`}
+              href={SITE_INFO.emailUrl}
+              aria-label={`Email: ${SITE_INFO.email}`}
             >
-              {SITE_INFO.domain}
+              {SITE_INFO.email}
             </IntroItemLink>
           </IntroItemContent>
         </IntroItem>

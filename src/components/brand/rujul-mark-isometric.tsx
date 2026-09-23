@@ -24,15 +24,23 @@ const tapTransition: Transition = {
  * Derived directly from the modular 2D RT logo geometry in `brand-marks.tsx`:
  * - 'R' (left): Columnar spine, cantilevered upper facet loop with inner counter void, grounded diagonal leg.
  * - 'T' (right): Balanced horizontal cantilever crossbar spanning an anchored central stem.
- * Single coherent 3D projection (30° extrusion) with 45° diagonal top-face hatch,
- * solid architectural background occlusion, and scoped cursor-tracking specular highlight.
+ * Layered render architecture:
+ *   construction guidelines
+ *   ↓ back/depth wires (occluded by front plane)
+ *   ↓ side depth fills (fill-background)
+ *   ↓ front solid faces (fill-background occlusion)
+ *   ↓ top face underlay & 45° diagonal hatch
+ *   ↓ visible front outlines (silhouette stroke)
+ *   ↓ visible foreground depth edges (extrusion stroke)
+ *   ↓ specular highlight (cursor spotlight)
  */
 export function RujulMarkIsometric() {
   const id = useId();
   const ids = {
     facePattern: `rt-face-pattern-${id}`,
-    faceFill: `rt-face-fill-${id}`,
-    stroke: `rt-stroke-${id}`,
+    topFaces: `rt-top-faces-${id}`,
+    backWires: `rt-back-wires-${id}`,
+    visibleEdges: `rt-visible-edges-${id}`,
     radialGradient: `rt-radial-gradient-${id}`,
   };
 
@@ -126,7 +134,7 @@ export function RujulMarkIsometric() {
         </pattern>
 
         {/* Top-face polygons for the canonical RT architectural wireframe */}
-        <g id={ids.faceFill}>
+        <g id={ids.topFaces}>
           {/* 'R' Top Horizontal Face */}
           <path d="M 68.9 84 L 230.2 84 L 271.8 60 L 110.5 60 Z" />
           {/* 'T' Top Horizontal Face */}
@@ -135,44 +143,50 @@ export function RujulMarkIsometric() {
           <path d="M 122.6 184.8 L 176.4 184.8 L 218 160.8 L 164.2 160.8 Z" />
         </g>
 
-        {/* Wireframe edges: single canonical coordinate definition */}
+        {/* Layer 2: Back/depth wires physically behind the front plane */}
         <path
-          id={ids.stroke}
+          id={ids.backWires}
           d={[
-            // 'R' Front Outer & Inner Void
+            "M 164.2 194.4 L 164.2 275", // R stem back right vertical (occluded by front diagonal leg)
+            "M 122.6 299 L 164.2 275",   // R stem base connector (occluded by front diagonal leg)
+          ].join(" ")}
+        />
+
+        {/* Layer 7 & 8: Visible foreground linework (front silhouette + visible extrusion) */}
+        <path
+          id={ids.visibleEdges}
+          d={[
+            // 'R' Front Silhouette Outer & Inner Void
             "M 68.9 84 L 230.2 84 L 230.2 191.5 L 203.3 191.5 L 230.2 299 L 176.4 299 L 149.5 218.4 L 122.6 218.4 L 122.6 299 L 68.9 299 Z",
             "M 122.6 131 L 176.4 131 L 176.4 184.8 L 122.6 184.8 Z",
 
-            // 'T' Front Monogram Contour
+            // 'T' Front Silhouette Monogram Contour
             "M 283.9 84 L 445.2 84 L 445.2 131 L 391.4 131 L 391.4 299 L 337.7 299 L 337.7 131 L 283.9 131 Z",
 
-            // Top Back Edges
+            // Visible Top Back Edges
             "M 110.5 60 L 271.8 60",
             "M 325.5 60 L 486.8 60",
             "M 164.2 160.8 L 218 160.8",
 
-            // Side Right Back Edges
+            // Visible Side Right Back Edges (Outer silhouette boundaries)
             "M 271.8 60 L 271.8 167.5",
             "M 244.9 167.5 L 271.8 275",
-            "M 164.2 194.4 L 164.2 275",
             "M 486.8 60 L 486.8 107",
             "M 433 107 L 433 275",
             "M 164.2 107 L 164.2 160.8",
 
-            // Depth Extrusion Connectors (30° projection)
+            // Visible Depth Extrusion Connectors (30° outer corners)
             "M 68.9 84 L 110.5 60",
             "M 230.2 84 L 271.8 60",
             "M 230.2 191.5 L 271.8 167.5",
             "M 203.3 191.5 L 244.9 167.5",
             "M 230.2 299 L 271.8 275",
-            "M 122.6 299 L 164.2 275",
             "M 283.9 84 L 325.5 60",
             "M 445.2 84 L 486.8 60",
             "M 445.2 131 L 486.8 107",
             "M 391.4 131 L 433 107",
             "M 391.4 299 L 433 275",
             "M 122.6 131 L 164.2 107",
-            "M 122.6 184.8 L 164.2 160.8",
             "M 176.4 184.8 L 218 160.8",
           ].join(" ")}
         />
@@ -198,14 +212,17 @@ export function RujulMarkIsometric() {
         </motion.radialGradient>
       </defs>
 
-      {/* Subtle architectural coordinate construction guidelines */}
+      {/* Layer 1: Subtle architectural coordinate construction guidelines */}
       <g className="stroke-line/40" strokeWidth="1" strokeDasharray="3 3">
         <path d="M-50 250 L600 -125" />
         <path d="M-40 370 L600 0" />
         <path d="M600 370 L-80 -20" />
       </g>
 
-      {/* Side depth extrusion fills for architectural occlusion */}
+      {/* Layer 2: Back/depth wires (rendered BEFORE front solid faces so occluded portions are hidden) */}
+      <use href={`#${ids.backWires}`} stroke="var(--stroke)" strokeWidth="1" />
+
+      {/* Layer 3: Side depth extrusion fills for architectural occlusion */}
       <g className="fill-background">
         {/* 'R' Outer Loop Right Face */}
         <path d="M 230.2 84 L 271.8 60 L 271.8 167.5 L 230.2 191.5 Z" />
@@ -221,7 +238,7 @@ export function RujulMarkIsometric() {
         <path d="M 122.6 131 L 164.2 107 L 164.2 160.8 L 122.6 184.8 Z" />
       </g>
 
-      {/* Front faces solid occlusion (hides internal wires behind front faces) */}
+      {/* Layer 4: Front faces solid occlusion (occludes all rear wires behind R and T) */}
       <g className="fill-background" fillRule="evenodd" clipRule="evenodd">
         {/* 'R' Front Face */}
         <path d="M 68.9 84 L 230.2 84 L 230.2 191.5 L 203.3 191.5 L 230.2 299 L 176.4 299 L 149.5 218.4 L 122.6 218.4 L 122.6 299 L 68.9 299 Z M 122.6 131 L 176.4 131 L 176.4 184.8 L 122.6 184.8 Z" />
@@ -229,14 +246,16 @@ export function RujulMarkIsometric() {
         <path d="M 283.9 84 L 445.2 84 L 445.2 131 L 391.4 131 L 391.4 299 L 337.7 299 L 337.7 131 L 283.9 131 Z" />
       </g>
 
-      {/* Top horizontal faces with background underlay + diagonal hatch */}
-      <use href={`#${ids.faceFill}`} className="fill-background" />
-      <use href={`#${ids.faceFill}`} fill={`url(#${ids.facePattern})`} />
+      {/* Layer 5 & 6: Top horizontal faces with background underlay + diagonal hatch */}
+      <use href={`#${ids.topFaces}`} className="fill-background" />
+      <use href={`#${ids.topFaces}`} fill={`url(#${ids.facePattern})`} />
 
-      {/* Wireframe edges: static baseline + dynamic specular highlight */}
-      <use href={`#${ids.stroke}`} stroke="var(--stroke)" strokeWidth="1" />
+      {/* Layer 7 & 8: Visible foreground wireframe edges */}
+      <use href={`#${ids.visibleEdges}`} stroke="var(--stroke)" strokeWidth="1" />
+
+      {/* Layer 9: Specular highlight tracks cursor across visible edges only */}
       <use
-        href={`#${ids.stroke}`}
+        href={`#${ids.visibleEdges}`}
         stroke={`url(#${ids.radialGradient})`}
         strokeWidth="1.2"
       />

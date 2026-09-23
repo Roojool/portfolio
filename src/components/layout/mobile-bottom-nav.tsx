@@ -27,7 +27,7 @@ export function MobileBottomNav() {
   };
 
   return (
-    <>
+    <div data-mobile-nav>
       {/* Popover Menu Overlay */}
       {menuOpen && (
         <div
@@ -111,6 +111,6 @@ export function MobileBottomNav() {
           />
         </button>
       </div>
-    </>
+    </div>
   );
 }

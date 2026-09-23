@@ -28,13 +28,19 @@ export function IntroItemContent({
 
 export function IntroItemLink({
   className,
+  href,
   ...props
 }: React.ComponentProps<"a">) {
+  const isExternal = href?.startsWith("http") ?? false;
   return (
     <a
-      className={cn("link", className)}
-      target="_blank"
-      rel="noopener noreferrer"
+      href={href}
+      className={cn(
+        "text-foreground no-underline hover:underline focus-visible:underline underline-offset-4 outline-none focus-visible:ring-1 focus-visible:ring-ring transition-colors",
+        className
+      )}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noopener noreferrer" : undefined}
       {...props}
     />
   );

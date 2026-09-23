@@ -20,7 +20,7 @@ export function Footer() {
   const stack = getStack();
 
   return (
-    <footer className="max-w-screen overflow-x-clip px-2">
+    <footer data-site-footer className="max-w-screen overflow-x-clip px-2">
       <div className="mx-auto border-x group-has-data-[slot=layout-wide]/layout:container md:max-w-3xl">
         {/* Stripe divider header */}
         <div className="screen-line-top screen-line-bottom screen-line-top-border before:z-1">

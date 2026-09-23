@@ -17,7 +17,9 @@ export const education: EducationItem[] = [
     degree: "Bachelor of Technology (B.Tech)",
     field: "Computer Engineering",
     institution: "Vishwakarma Institute of Technology (VIT Pune)",
-    location: "Pune, Maharashtra, India",
-    status: "Undergraduate Program (In Progress)"
+    location: "Pune, India",
+    status: "Undergraduate Program (In Progress)",
+    period: "2023 – 2027",
+    gpa: "8.5"
   }
 ];

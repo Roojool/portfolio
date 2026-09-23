@@ -17,6 +17,7 @@ import {
   ExternalLink,
   Search,
   Command as CommandIcon,
+  FileText,
 } from "lucide-react";
 import { GithubIcon, LinkedinIcon, XIcon } from "@/components/ui/icons";
 import { Button } from "@/components/ui/button";
@@ -138,6 +139,13 @@ export function CommandMenu() {
                   >
                     <User className="size-3.5 text-muted-foreground" />
                     <span>About & Academic Dossier</span>
+                  </Command.Item>
+                  <Command.Item
+                    onSelect={() => runCommand(() => router.push("/resume"))}
+                    className="flex items-center gap-2 px-2.5 py-2 rounded text-foreground hover:bg-muted cursor-pointer"
+                  >
+                    <FileText className="size-3.5 text-muted-foreground" />
+                    <span>Resume / CV</span>
                   </Command.Item>
                 </Command.Group>
 

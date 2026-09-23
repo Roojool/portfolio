@@ -29,6 +29,8 @@ export const SITE_INFO = {
   githubUrl: "https://github.com/Roojool",
   xUrl: "https://x.com/Roojool1",
   xHandle: "@Roojool1",
+  email: "roojool.talekar@gmail.com",
+  emailUrl: "mailto:roojool.talekar@gmail.com",
 };
 
 export interface NavItem {

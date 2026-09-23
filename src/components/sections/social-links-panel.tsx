@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Rss, Fingerprint } from "lucide-react";
+import { Rss, Fingerprint, FileText } from "lucide-react";
 import { Panel, PanelContent } from "@/components/ui/panel";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
@@ -40,6 +40,12 @@ const SOCIAL_ITEMS = [
     handle: SITE_INFO.orcid,
     href: SITE_INFO.orcidUrl,
     icon: <Fingerprint className="size-4" />,
+  },
+  {
+    title: "Resume",
+    handle: "/resume",
+    href: "/resume",
+    icon: <FileText className="size-4" />,
   },
   {
     title: "RSS Feed",

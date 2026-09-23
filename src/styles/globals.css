@@ -269,3 +269,33 @@
 .typeset-description a:hover {
   text-decoration-color: currentColor;
 }
+
+/* Print styles for clean, ATS-compliant paper/PDF output */
+@media print {
+  [data-site-header],
+  [data-site-footer],
+  [data-mobile-nav],
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #09090b !important;
+    font-size: 10pt !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  main {
+    padding: 0 !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+
+  .screen-line-top,
+  .screen-line-bottom,
+  .stripe-divider {
+    display: none !important;
+  }
+}

@@ -36,8 +36,17 @@ export const socialLinks = {
     label: "X (Twitter)",
     username: "Roojool1"
   },
-  email: null,
-  resume: null
+  email: {
+    name: "Email",
+    url: "mailto:roojool.talekar@gmail.com",
+    label: "Email",
+    username: "roojool.talekar@gmail.com"
+  },
+  resume: {
+    name: "Resume",
+    url: "/resume",
+    label: "Resume"
+  }
 };
 
 export const primaryLinks: SocialLink[] = [
