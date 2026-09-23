@@ -15,13 +15,17 @@ export default function ResumePage() {
     <div className="min-h-screen py-4 sm:py-8 print:p-0">
       <ResumeActionBar />
 
-      <main
+      <article
         tabIndex={-1}
+        aria-labelledby="resume-name"
         className="resume-sheet mx-auto w-full max-w-[210mm] bg-card p-6 sm:p-8 text-foreground border border-border shadow-xs print:m-0 print:w-[210mm] print:min-h-[297mm] print:max-w-none print:border-none print:bg-white print:p-[9mm_11mm_8mm_11mm] print:text-black print:shadow-none font-sans text-[13px] leading-[1.4] print:text-[9.25pt] print:leading-[1.24] focus:outline-none"
       >
         {/* Header */}
         <header className="border-b border-border pb-3 print:border-zinc-300 print:pb-1.5 text-center">
-          <h1 className="text-xl sm:text-2xl print:text-[17pt] font-bold uppercase tracking-tight text-foreground print:text-black">
+          <h1
+            id="resume-name"
+            className="text-xl sm:text-2xl print:text-[17pt] font-bold uppercase tracking-tight text-foreground print:text-black"
+          >
             {data.header.name}
           </h1>
           <p className="text-xs sm:text-sm print:text-[9pt] font-medium text-muted-foreground print:text-zinc-700 mt-0.5 mb-1.5 print:mb-1">
@@ -281,7 +285,7 @@ export default function ResumePage() {
             ))}
           </div>
         </section>
-      </main>
+      </article>
     </div>
   );
 }

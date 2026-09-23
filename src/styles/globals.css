@@ -281,8 +281,8 @@
 
 /* Print styles for clean, ATS-compliant paper/PDF output */
 @media print {
-  html,
-  body {
+  html:has(.resume-sheet),
+  body:has(.resume-sheet) {
     width: 210mm !important;
     margin: 0 !important;
     padding: 0 !important;
@@ -291,6 +291,12 @@
     font-size: 9.25pt !important;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
+  }
+
+  main:has(.resume-sheet) {
+    padding: 0 !important;
+    max-width: none !important;
+    overflow: visible !important;
   }
 
   .resume-sheet {
@@ -311,12 +317,6 @@
   [data-mobile-nav],
   .no-print {
     display: none !important;
-  }
-
-  main {
-    padding: 0 !important;
-    max-width: 100% !important;
-    overflow: visible !important;
   }
 
   .screen-line-top,

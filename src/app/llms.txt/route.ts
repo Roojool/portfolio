@@ -12,7 +12,7 @@ export async function GET() {
 
 > Personal research portfolio & engineering dossier.
 > Computer Engineering undergraduate at Vishwakarma Institute of Technology (VIT Pune) and AI Researcher with ACM.
-> Location: Pune District, Maharashtra, India.
+> Location: Pune, India.
 > Identity: AI Researcher × Systems Builder
 
 ## Core Identity & Overview
@@ -73,6 +73,7 @@ ${patents
 
 ## Canonical Routes & Indices
 - Main Portfolio: ${SITE_URL}
+- Live Curriculum Vitae: ${SITE_URL}/resume
 - Research Dossiers: ${SITE_URL}/research
 - Projects Directory: ${SITE_URL}/projects
 - Publications Index: ${SITE_URL}/publications
@@ -84,7 +85,7 @@ ${patents
 - GitHub: ${SITE_INFO.githubUrl}
 - LinkedIn: ${SITE_INFO.linkedinUrl}
 - ORCID: ${SITE_INFO.orcidUrl}
-- Location: Pune District, Maharashtra, India (UTC+05:30)
+- Location: Pune, India (UTC+05:30)
 `;
 
   return new NextResponse(content, {

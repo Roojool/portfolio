@@ -15,8 +15,8 @@ export async function GET() {
     id: baseUrl,
     link: baseUrl,
     language: "en",
-    image: `${baseUrl}/icon.svg`,
-    favicon: `${baseUrl}/favicon.svg`,
+    image: `${baseUrl}/rt-icon-v2.svg`,
+    favicon: `${baseUrl}/rt-favicon-v2.svg`,
     copyright: `All rights reserved ${new Date().getFullYear()}, ${SITE_INFO.name}`,
     author: {
       name: SITE_INFO.name,

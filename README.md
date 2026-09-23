@@ -8,7 +8,7 @@ Personal research portfolio, academic dossiers, and systems engineering showcase
 Identity     : Rujul Talekar (Roojool)
 Affiliation  : Computer Engineering @ Vishwakarma Institute of Technology (VIT Pune)
 Core Domains : Human-Centered AI · Video Management Systems · Edge Vision · Transport Dynamics
-Live Routes  : / · /research · /projects · /publications · /writing · /about · /llms.txt
+Live Routes  : / · /resume · /research · /projects · /publications · /writing · /about · /llms.txt
 -----------------------------------------------------------------------------------------
 ```
 
@@ -43,8 +43,10 @@ portfolio/
 │   └── writing/                   # Technical essays (MDX)
 │       └── configured-state-is-not-wire-behavior.mdx
 ├── public/
-│   ├── favicon.svg                # Original RT research monogram
-│   ├── icon.svg                   # Scalable PWA/browser icon
+│   ├── rt-favicon-v2.svg          # Canonical RT monogram favicon
+│   ├── rt-icon-v2.svg             # High-contrast RT site icon
+│   ├── images/
+│   │   └── rujul-hero.png         # Pixel portrait asset
 │   └── manifest.webmanifest       # Web application manifest
 ├── src/
 │   ├── app/
@@ -53,6 +55,7 @@ portfolio/
 │   │   ├── opengraph-image.tsx    # Dynamic edge OpenGraph image
 │   │   ├── twitter-image.tsx      # Twitter summary card
 │   │   ├── about/page.tsx         # Extended academic dossier
+│   │   ├── resume/page.tsx        # Printable A4 curriculum vitae
 │   │   ├── research/page.tsx      # Research index & hypotheses
 │   │   ├── projects/page.tsx      # Engineering projects catalog
 │   │   ├── publications/page.tsx  # Academic papers & BibTeX citations
@@ -71,6 +74,7 @@ portfolio/
 │   │   └── ui/                    # Buttons, Badges, Cards, ThemeToggle
 │   ├── data/                      # Centralized type-safe content layer
 │   │   ├── profile.ts             # Core bio, principles, status
+│   │   ├── resume.ts              # Curated resume config and dynamic skills mapping
 │   │   ├── experience.ts          # Lab appointments & timeline
 │   │   ├── education.ts           # Academic credentials (VIT Pune)
 │   │   ├── projects.ts            # Public repositories & showcases
@@ -142,6 +146,7 @@ All personal data, research vectors, and achievements are centralized in `src/da
 * **Publications:** Add verified conference proceedings in `src/data/publications.ts` with authors, venue, year, and BibTeX.
 * **Patents:** Maintain intellectual property records in `src/data/patents.ts`.
 * **Projects:** Add verified repositories in `src/data/projects.ts`.
+* **Resume & CV:** Configure curated projects and display categories in `src/data/resume.ts` for the live and printable `/resume` route.
 * **Writing & Field Notes:** Add `.mdx` or `.md` files to `content/writing/` with frontmatter:
   ```yaml
   ---

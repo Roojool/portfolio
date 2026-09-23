@@ -16,7 +16,7 @@ export const profile: Profile = {
   title: "AI Researcher × Systems Builder",
   role: "Artificial Intelligence Researcher & Systems Builder",
   institution: "Vishwakarma Institute of Technology (VIT Pune)",
-  location: "Pune District, Maharashtra, India",
+  location: "Pune, India",
   timezone: "Asia/Kolkata (UTC+05:30)",
   status: "AI/HCI · VMS · NETWORK SYSTEMS",
   headline:
