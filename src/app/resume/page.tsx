@@ -110,40 +110,43 @@ export default function ResumePage() {
             Publications
           </h2>
           <div className="space-y-1.5 print:space-y-1">
-            {data.publications.map((pub) => (
-              <div key={pub.id} className="space-y-0.5 print:space-y-0 break-inside-avoid">
-                <div className="flex flex-wrap justify-between items-baseline gap-x-2">
-                  {pub.scholarUrl ? (
-                    <a
-                      href={pub.scholarUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-semibold text-foreground print:text-black hover:underline focus-visible:underline underline-offset-2"
-                    >
-                      {pub.title}
-                    </a>
-                  ) : (
-                    <span className="font-semibold text-foreground print:text-black">
-                      {pub.title}
+            {data.publications.map((pub) => {
+              const paperUrl = pub.doi || pub.evidenceUrl;
+              return (
+                <div key={pub.id} className="space-y-0.5 print:space-y-0 break-inside-avoid">
+                  <div className="flex flex-wrap justify-between items-baseline gap-x-2">
+                    {paperUrl ? (
+                      <a
+                        href={paperUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-foreground print:text-black hover:underline focus-visible:underline underline-offset-2"
+                      >
+                        {pub.title}
+                      </a>
+                    ) : (
+                      <span className="font-semibold text-foreground print:text-black">
+                        {pub.title}
+                      </span>
+                    )}
+                    <span className="text-xs font-mono text-muted-foreground print:hidden">
+                      {pub.venueAbbr}
                     </span>
-                  )}
-                  <span className="text-xs font-mono text-muted-foreground print:hidden">
-                    {pub.venueAbbr}
-                  </span>
+                  </div>
+                  <div className="text-xs print:text-[8.5pt] text-muted-foreground print:text-zinc-700">
+                    <span>{pub.authors.join(", ")}</span>
+                  </div>
+                  <div className="text-xs print:text-[8.5pt] text-muted-foreground print:text-zinc-600">
+                    <span className="print:hidden">
+                      {pub.venue} · Pages {pub.pages} · {pub.year}
+                    </span>
+                    <span className="hidden print:inline">
+                      {pub.venueAbbr} · pp. {pub.pages} · {pub.year}
+                    </span>
+                  </div>
                 </div>
-                <div className="text-xs print:text-[8.5pt] text-muted-foreground print:text-zinc-700">
-                  <span>{pub.authors.join(", ")}</span>
-                </div>
-                <div className="text-xs print:text-[8.5pt] text-muted-foreground print:text-zinc-600">
-                  <span className="print:hidden">
-                    {pub.venue} · Pages {pub.pages} · {pub.year}
-                  </span>
-                  <span className="hidden print:inline">
-                    {pub.venueAbbr} · pp. {pub.pages} · {pub.year}
-                  </span>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 
@@ -163,7 +166,7 @@ export default function ResumePage() {
                     rel="noopener noreferrer"
                     className="font-semibold text-foreground hover:underline focus-visible:underline underline-offset-2"
                   >
-                    {proj.name}
+                    {proj.displayName ?? proj.name}
                   </a>
                   <span className="text-xs font-mono text-muted-foreground">
                     {proj.stack.slice(0, 4).join(" · ")}
@@ -176,7 +179,7 @@ export default function ResumePage() {
                     href={proj.url}
                     className="font-semibold text-black hover:underline focus-visible:underline underline-offset-2"
                   >
-                    {proj.name}
+                    {proj.displayName ?? proj.name}
                   </a>
                   <div className="text-[7.75pt] font-mono text-zinc-600 min-w-0 break-words -mt-0.5 mb-0.5">
                     {proj.stack.slice(0, 4).join(" · ")}
@@ -266,38 +269,16 @@ export default function ResumePage() {
             Technical Skills
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 print:grid-cols-2 gap-x-4 gap-y-1 text-xs print:text-[8.5pt] print:leading-[1.25]">
-            <div className="min-w-0 break-words">
-              <span className="font-semibold text-foreground print:text-black">
-                Languages:{" "}
-              </span>
-              <span className="text-muted-foreground print:text-zinc-800">
-                Python, C, C++, Java, Kotlin, JavaScript, TypeScript, SQL
-              </span>
-            </div>
-            <div className="min-w-0 break-words">
-              <span className="font-semibold text-foreground print:text-black">
-                AI &amp; Vision:{" "}
-              </span>
-              <span className="text-muted-foreground print:text-zinc-800">
-                OpenCV, Computer Vision, Video Analytics, LLMs, RAG, LangChain
-              </span>
-            </div>
-            <div className="min-w-0 break-words">
-              <span className="font-semibold text-foreground print:text-black">
-                Systems &amp; Tools:{" "}
-              </span>
-              <span className="text-muted-foreground print:text-zinc-800">
-                Android SDK/NDK, JNI, Linux, Docker, CMake, Git, GitHub Actions
-              </span>
-            </div>
-            <div className="min-w-0 break-words">
-              <span className="font-semibold text-foreground print:text-black">
-                Web &amp; Backend:{" "}
-              </span>
-              <span className="text-muted-foreground print:text-zinc-800">
-                React, Next.js, Node.js, Express, FastAPI, MongoDB, MySQL
-              </span>
-            </div>
+            {data.skills.map((category) => (
+              <div key={category.title} className="min-w-0 break-words">
+                <span className="font-semibold text-foreground print:text-black">
+                  {category.label}:{" "}
+                </span>
+                <span className="text-muted-foreground print:text-zinc-800">
+                  {category.skills.join(", ")}
+                </span>
+              </div>
+            ))}
           </div>
         </section>
       </main>

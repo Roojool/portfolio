@@ -45,7 +45,7 @@ export default function ProjectsPage() {
                       {project.domain}
                     </span>
                     <h2 className="text-base sm:text-lg font-medium text-foreground">
-                      {project.name}
+                      {project.displayName ?? project.name}
                     </h2>
                   </div>
 

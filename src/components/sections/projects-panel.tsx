@@ -53,7 +53,7 @@ export function ProjectRowItem({
             <h3 className="mb-1 leading-snug font-medium text-balance">
               <CollapsibleTrigger className="text-left w-full">
                 <span className="absolute inset-0" aria-hidden />
-                {project.name}
+                {project.displayName ?? project.name}
               </CollapsibleTrigger>
             </h3>
 
@@ -74,8 +74,8 @@ export function ProjectRowItem({
             href={project.url}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`Open ${project.name} on GitHub`}
-            title={`Open ${project.name} on GitHub`}
+            aria-label={`Open ${project.displayName ?? project.name} on GitHub`}
+            title={`Open ${project.displayName ?? project.name} on GitHub`}
           >
             <LinkIcon className="pointer-events-none size-4" />
           </a>

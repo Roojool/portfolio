@@ -1,6 +1,7 @@
 export interface ProjectItem {
   id: string;
   name: string;
+  displayName?: string;
   repo: string;
   url: string;
   domain: string;
@@ -20,6 +21,7 @@ export const projects: ProjectItem[] = [
   {
     id: "5g-bufferbloat-app",
     name: "5G-Bufferbloat-App",
+    displayName: "5G Bufferbloat App",
     repo: "Roojool/5G-Bufferbloat-App",
     url: "https://github.com/Roojool/5G-Bufferbloat-App",
     domain: "Android Networking / Transport Research",
@@ -38,6 +40,7 @@ export const projects: ProjectItem[] = [
   {
     id: "frigate-vms-lab",
     name: "Frigate-VMS-Lab",
+    displayName: "Frigate VMS Lab",
     repo: "Roojool/Frigate-VMS-Lab",
     url: "https://github.com/Roojool/Frigate-VMS-Lab",
     domain: "Video Management Systems / Experimental Tooling",
@@ -64,6 +67,7 @@ export const projects: ProjectItem[] = [
   {
     id: "ai-video-analytics-showcase",
     name: "ai-video-analytics-showcase",
+    displayName: "AI Video Analytics Showcase",
     repo: "Roojool/ai-video-analytics-showcase",
     url: "https://github.com/Roojool/ai-video-analytics-showcase",
     domain: "AI Video Analytics / VMS Research Showcase",
@@ -82,6 +86,7 @@ export const projects: ProjectItem[] = [
   {
     id: "pmc-cctv-surveillance-editorial",
     name: "pmc-cctv-surveillance-editorial",
+    displayName: "PMC CCTV Surveillance Editorial",
     repo: "Roojool/pmc-cctv-surveillance-editorial",
     url: "https://github.com/Roojool/pmc-cctv-surveillance-editorial",
     domain: "Interactive CCTV / VMS Technical Showcase",
@@ -100,6 +105,7 @@ export const projects: ProjectItem[] = [
   {
     id: "5g-india-gaming-guide",
     name: "5G-India-Gaming-Guide",
+    displayName: "5G India Gaming Guide",
     repo: "Roojool/5G-India-Gaming-Guide",
     url: "https://github.com/Roojool/5G-India-Gaming-Guide",
     domain: "Network Optimization Guide",

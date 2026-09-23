@@ -36,7 +36,8 @@ ${researchVectors
 ## Verified Engineering Projects
 ${projects
   .map(
-    (p) => `### ${p.name}
+    (p) => `### ${p.displayName ?? p.name}
+- Repository Slug: ${p.repo}
 - Domain: ${p.domain}
 - Status: ${p.status}
 - Repository: ${p.url}

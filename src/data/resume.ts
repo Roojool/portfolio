@@ -6,12 +6,24 @@ import { patents } from "@/data/patents";
 import { skillCategories } from "@/data/skills";
 import { SITE_INFO } from "@/config/site";
 
+export interface ResumeSkillCategory {
+  title: string;
+  label: string;
+  skills: string[];
+}
+
 export const resumeConfig = {
   selectedProjectIds: [
     "5g-bufferbloat-app",
     "frigate-vms-lab",
     "ai-video-analytics-showcase",
   ] as const,
+  categoryPresentation: [
+    { title: "Languages", label: "Languages" },
+    { title: "AI & Perceptual Systems", label: "AI & Vision" },
+    { title: "Systems & Infrastructure", label: "Systems & Tools" },
+    { title: "Web & Backend", label: "Web & Backend" },
+  ],
   links: [
     { label: "Pune, India", href: "https://www.google.com/maps/search/?api=1&query=Pune%2C+India", isExternal: true },
     { label: SITE_INFO.email, href: SITE_INFO.emailUrl, isExternal: false },
@@ -27,6 +39,18 @@ export function getResumeData() {
     .map((id) => projects.find((p) => p.id === id))
     .filter((p): p is NonNullable<typeof p> => p !== undefined);
 
+  const resumeSkills: ResumeSkillCategory[] = resumeConfig.categoryPresentation
+    .map(({ title, label }) => {
+      const cat = skillCategories.find((c) => c.title === title);
+      if (!cat) return null;
+      return {
+        title: cat.title,
+        label,
+        skills: cat.skills,
+      };
+    })
+    .filter((c): c is ResumeSkillCategory => c !== null);
+
   return {
     header: {
       name: SITE_INFO.name,
@@ -38,6 +62,6 @@ export function getResumeData() {
     publications,
     projects: selectedProjects,
     patents,
-    skills: skillCategories,
+    skills: resumeSkills,
   };
 }

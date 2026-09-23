@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { researchVectors } from "@/data/research";
+import { projects } from "@/data/projects";
 import { Panel, PanelHeader, PanelTitle, PanelDescription } from "@/components/ui/panel";
 import { SITE_INFO } from "@/config/site";
 
@@ -109,7 +110,11 @@ export default function ResearchPage() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 link-underline text-foreground"
                     >
-                      <span>View {vector.relevantProject.name}</span>
+                      <span>
+                        View{" "}
+                        {projects.find((p) => p.url === vector.relevantProject?.url)
+                          ?.displayName ?? vector.relevantProject.name}
+                      </span>
                       <ExternalLink className="size-3" />
                     </a>
                   )}
