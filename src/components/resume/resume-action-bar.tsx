@@ -29,14 +29,20 @@ export function ResumeActionBar() {
         }
       />
 
-      <Button
-        onClick={handlePrint}
-        size="sm"
-        className="flex items-center gap-1.5 font-mono text-xs cursor-pointer shadow-sm"
-      >
-        <Printer className="size-3.5" />
-        <span>Print / Save PDF</span>
-      </Button>
+      <div className="flex items-center gap-3">
+        <span className="hidden sm:inline-block text-[11px] font-mono text-muted-foreground/75">
+          Recommended: A4 · Scale 100% · Headers &amp; footers: Off
+        </span>
+        <Button
+          onClick={handlePrint}
+          size="sm"
+          title="Print or Save as PDF (A4 Portrait, Scale 100%, Headers & Footers: Off)"
+          className="flex items-center gap-1.5 font-mono text-xs cursor-pointer shadow-sm"
+        >
+          <Printer className="size-3.5" />
+          <span>Print / Save PDF</span>
+        </Button>
+      </div>
     </aside>
   );
 }

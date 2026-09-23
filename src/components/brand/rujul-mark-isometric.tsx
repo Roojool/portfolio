@@ -1,11 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useId, useRef } from "react";
+import { useId, useRef } from "react";
 import type { Transition } from "motion/react";
 import {
   motion,
-  useInView,
   useMotionValue,
   useReducedMotion,
   useSpring,
@@ -46,7 +45,6 @@ export function RujulMarkIsometric() {
 
   const ref = useRef<SVGSVGElement>(null);
   const shouldReduceMotion = useReducedMotion();
-  const isInView = useInView(ref, { margin: "80px" });
 
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
@@ -62,31 +60,6 @@ export function RujulMarkIsometric() {
     damping: 30,
     mass: 0.1,
   });
-
-  // Track cursor scoped to the SVG's bounding client rect
-  useEffect(() => {
-    if (shouldReduceMotion || !isInView) return;
-    if (window.matchMedia("(hover: none)").matches) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!ref.current) return;
-      const rect = ref.current.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = (e.clientY - rect.top) / rect.height;
-
-      // Track when near or over the visualizer, gently reset when far away
-      if (x >= -0.2 && x <= 1.2 && y >= -0.2 && y <= 1.2) {
-        mouseX.set(Math.max(0, Math.min(1, x)));
-        mouseY.set(Math.max(0, Math.min(1, y)));
-      } else {
-        mouseX.set(0.5);
-        mouseY.set(0.5);
-      }
-    };
-
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [shouldReduceMotion, isInView, mouseX, mouseY]);
 
   const handlePointerMove = (e: React.PointerEvent<SVGSVGElement>) => {
     if (shouldReduceMotion) return;

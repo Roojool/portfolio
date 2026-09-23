@@ -270,21 +270,47 @@
   text-decoration-color: currentColor;
 }
 
+@page {
+  size: A4;
+  margin: 0;
+}
+
+.resume-sheet {
+  box-sizing: border-box;
+}
+
 /* Print styles for clean, ATS-compliant paper/PDF output */
 @media print {
+  html,
+  body {
+    width: 210mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #09090b !important;
+    font-size: 9.25pt !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .resume-sheet {
+    width: 210mm !important;
+    min-height: 297mm !important;
+    max-width: 210mm !important;
+    margin: 0 !important;
+    padding: 9mm 11mm 8mm 11mm !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    color: #09090b !important;
+    overflow: visible !important;
+  }
+
   [data-site-header],
   [data-site-footer],
   [data-mobile-nav],
   .no-print {
     display: none !important;
-  }
-
-  body {
-    background: #ffffff !important;
-    color: #09090b !important;
-    font-size: 10pt !important;
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
   }
 
   main {
