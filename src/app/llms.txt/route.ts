@@ -1,15 +1,14 @@
 import { NextResponse } from "next/server";
-import { profile } from "@/data/profile";
 import { researchVectors } from "@/data/research";
 import { projects } from "@/data/projects";
 import { publications } from "@/data/publications";
 import { patents } from "@/data/patents";
-import { socialLinks } from "@/data/links";
+import { SITE_INFO, SITE_URL } from "@/config/site";
 
 export const dynamic = "force-static";
 
 export async function GET() {
-  const content = `# Rujul Talekar — AI Researcher × Systems Builder
+  const content = `# ${SITE_INFO.name} — ${SITE_INFO.title}
 
 > Personal research portfolio & engineering dossier.
 > Computer Engineering undergraduate at Vishwakarma Institute of Technology (VIT Pune).
@@ -17,7 +16,7 @@ export async function GET() {
 > Identity: AI Researcher × Systems Builder
 
 ## Core Identity & Overview
-${profile.headline}
+${SITE_INFO.headline}
 
 Methodological Postulate:
 Configured State Is Not Wire Behavior. Systems and models must be validated through observable runtime telemetry, baseline comparisons, and reproducible instrumentation.
@@ -70,17 +69,17 @@ ${patents
   .join("\n\n")}
 
 ## Canonical Routes & Indices
-- Main Portfolio: https://roojool.github.io/portfolio
-- Research Dossiers: https://roojool.github.io/portfolio/research
-- Projects Directory: https://roojool.github.io/portfolio/projects
-- Publications Index: https://roojool.github.io/portfolio/publications
-- Technical Writing: https://roojool.github.io/portfolio/writing
-- RSS Feed: https://roojool.github.io/portfolio/feed.xml
+- Main Portfolio: ${SITE_URL}
+- Research Dossiers: ${SITE_URL}/research
+- Projects Directory: ${SITE_URL}/projects
+- Publications Index: ${SITE_URL}/publications
+- Technical Writing: ${SITE_URL}/writing
+- RSS Feed: ${SITE_URL}/feed.xml
 
 ## Contact & Identifiers
-- GitHub: ${socialLinks.github.url}
-- LinkedIn: ${socialLinks.linkedin.url}
-- ORCID: ${socialLinks.orcid.url}
+- GitHub: ${SITE_INFO.githubUrl}
+- LinkedIn: ${SITE_INFO.linkedinUrl}
+- ORCID: ${SITE_INFO.orcidUrl}
 - Location: Pune, Maharashtra, India (UTC+05:30)
 `;
 
@@ -88,7 +87,7 @@ ${patents
     status: 200,
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "public, max-age=86400, s-maxage=86400"
-    }
+      "Cache-Control": "public, max-age=86400, s-maxage=86400",
+    },
   });
 }

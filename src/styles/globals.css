@@ -1,38 +1,96 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-line: var(--line);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-accent: var(--accent);
+  --color-accent-muted: var(--accent-muted);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-heading: var(--font-sans);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #09090b;
+
+  --primary: #09090b;
+  --primary-foreground: #fafafa;
+
+  --secondary: #f4f4f5;
+  --secondary-foreground: #09090b;
+
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+
+  --border: #e4e4e7;
+  --line: color-mix(in oklab, var(--border) 64%, var(--background));
+
+  --card: #ffffff;
+  --card-foreground: #09090b;
+
+  --accent: #f4f4f5;
+  --accent-muted: color-mix(in oklab, var(--accent) 50%, transparent);
+  --accent-foreground: #18181b;
+
+  --selection: #09090b;
+  --selection-foreground: #fafafa;
+
+  --header-height: 3.5rem;
+  --separator-height: 2rem;
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #fafafa;
+
+  --primary: #fafafa;
+  --primary-foreground: #09090b;
+
+  --secondary: #27272a;
+  --secondary-foreground: #fafafa;
+
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+
+  --border: #27272a;
+  --line: color-mix(in oklab, var(--border) 64%, var(--background));
+
+  --card: #18181b;
+  --card-foreground: #fafafa;
+
+  --accent: #27272a;
+  --accent-muted: color-mix(in oklab, var(--accent) 20%, transparent);
+  --accent-foreground: #fafafa;
+
+  --selection: #fafafa;
+  --selection-foreground: #09090b;
+}
+
 @layer base {
-  :root {
-    --bg-canvas: #090a0f;
-    --bg-surface: #0f111a;
-    --bg-subtle: #161926;
-    --border-subtle: #1e2235;
-    --border-strong: #2d334d;
-    --text-primary: #f1f5f9;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
-    --accent-cyan: #06b6d4;
-    --accent-cyan-subtle: rgba(6, 182, 212, 0.12);
-    --accent-green: #22c55e;
-    --accent-green-subtle: rgba(34, 197, 94, 0.12);
+  *,
+  ::after,
+  ::before {
+    border-color: var(--border);
   }
 
-  .light {
-    --bg-canvas: #ffffff;
-    --bg-surface: #f8fafc;
-    --bg-subtle: #f1f5f9;
-    --border-subtle: #e2e8f0;
-    --border-strong: #cbd5e1;
-    --text-primary: #0f172a;
-    --text-secondary: #475569;
-    --text-muted: #64748b;
-    --accent-cyan: #0891b2;
-    --accent-cyan-subtle: rgba(8, 145, 178, 0.1);
-    --accent-green: #16a34a;
-    --accent-green-subtle: rgba(22, 163, 74, 0.1);
-  }
-
-  * {
-    border-color: var(--border-subtle);
+  ::selection {
+    background-color: var(--selection);
+    color: var(--selection-foreground);
   }
 
   html {
@@ -40,34 +98,173 @@
   }
 
   body {
-    background-color: var(--bg-canvas);
-    color: var(--text-primary);
+    background-color: var(--background);
+    color: var(--foreground);
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   }
+}
 
-  ::selection {
-    background: var(--accent-cyan);
-    color: #ffffff;
+/* Upstream Hairline and Screen Line Utilities */
+@utility screen-line-top {
+  position: relative;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100vw;
+    z-index: -1;
+    height: 1px;
+    width: 200vw;
+    background-color: var(--line);
   }
 }
 
-/* Technical grid background pattern */
-.bg-grid-technical {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+@utility screen-line-bottom {
+  position: relative;
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -100vw;
+    z-index: -1;
+    height: 1px;
+    width: 200vw;
+    background-color: var(--line);
+  }
 }
 
-.light .bg-grid-technical {
-  background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+@utility screen-line-top-border {
+  &:before {
+    background-color: var(--border);
+  }
 }
 
-/* Monospace code styling */
-pre, code {
-  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+@utility screen-line-bottom-border {
+  &:after {
+    background-color: var(--border);
+  }
+}
+
+@utility screen-dashed-line-top {
+  position: relative;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100vw;
+    z-index: -1;
+    height: 1px;
+    width: 200vw;
+    background-color: inherit;
+    background-image: linear-gradient(to right, var(--line) 4px, transparent 2px);
+    background-size: 6px 1px;
+    background-repeat: repeat-x;
+  }
+}
+
+@utility screen-dashed-line-bottom {
+  position: relative;
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -100vw;
+    z-index: -1;
+    height: 1px;
+    width: 200vw;
+    background-color: inherit;
+    background-image: linear-gradient(to right, var(--line) 4px, transparent 2px);
+    background-size: 6px 1px;
+    background-repeat: repeat-x;
+  }
+}
+
+@utility screen-line-top-none {
+  &:before {
+    content: none;
+  }
+}
+
+@utility screen-line-bottom-none {
+  &:after {
+    content: none;
+  }
+}
+
+@utility diagonal-stripes {
+  background-image: repeating-linear-gradient(
+    315deg,
+    var(--line) 0,
+    var(--line) 1px,
+    transparent 0,
+    transparent 50%
+  );
+  background-size: 10px 10px;
+}
+
+@utility stripe-divider {
+  position: relative;
+  height: 2rem;
+  &:before {
+    content: "";
+    position: absolute;
+    left: -100vw;
+    z-index: -1;
+    height: 100%;
+    width: 200vw;
+    background-image: repeating-linear-gradient(
+      315deg,
+      var(--line) 0,
+      var(--line) 1px,
+      transparent 0,
+      transparent 50%
+    );
+    background-size: 10px 10px;
+  }
+}
+
+@utility link {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  &:hover {
+    text-decoration-line: underline;
+  }
+}
+
+@utility link-underline {
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in oklab, currentColor 30%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 150ms ease;
+  &:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+/* Typeset rhythm for descriptions and markdown */
+.typeset-description {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--muted-foreground);
+}
+
+.typeset-description p + p {
+  margin-top: 0.75rem;
+}
+
+.typeset-description a {
+  color: var(--foreground);
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in oklab, currentColor 30%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 150ms ease;
+}
+
+.typeset-description a:hover {
+  text-decoration-color: currentColor;
 }

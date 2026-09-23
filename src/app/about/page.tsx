@@ -1,33 +1,34 @@
 import type { Metadata } from "next";
-import { AboutSection } from "@/components/sections/about-section";
-import { EducationSection } from "@/components/sections/education-section";
-import { ExperienceSection } from "@/components/sections/experience-timeline";
-import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { AboutPanel } from "@/components/sections/about-panel";
+import { ExperiencePanel } from "@/components/sections/experience-panel";
+import { EducationPanel } from "@/components/sections/education-panel";
+import { StripeSeparator } from "@/components/ui/separator";
+import { SITE_INFO } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "About — Rujul Talekar",
-  description:
-    "Academic background, research methodology, and systems philosophy of Rujul Talekar."
+  title: "About",
+  description: `Academic background, research methodology, and systems philosophy of ${SITE_INFO.name}.`,
 };
 
 export default function AboutPage() {
   return (
-    <div className="py-16">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="mb-6">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-400 hover:text-cyan-400 transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" /> Back to Home
-          </Link>
-        </div>
-
-        <AboutSection />
-        <ExperienceSection />
-        <EducationSection />
+    <div className="mx-auto md:max-w-3xl border-x">
+      <div className="p-4 border-b border-line">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <ArrowLeft className="size-3.5" /> Back to Home
+        </Link>
       </div>
+
+      <AboutPanel />
+      <StripeSeparator />
+      <ExperiencePanel />
+      <StripeSeparator />
+      <EducationPanel />
     </div>
   );
 }

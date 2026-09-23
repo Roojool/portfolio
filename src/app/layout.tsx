@@ -1,17 +1,21 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { MobileBottomNav } from "@/components/layout/mobile-bottom-nav";
 import { profile } from "@/data/profile";
-import { socialLinks } from "@/data/links";
+import { SITE_INFO, SITE_URL } from "@/config/site";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
-  title: `${profile.name} — ${profile.title}`,
-  description: profile.headline,
-  metadataBase: new URL("https://roojool.github.io/portfolio"),
+  metadataBase: new URL(SITE_URL),
+  title: {
+    template: `%s – ${SITE_INFO.name}`,
+    default: `${SITE_INFO.name} — ${SITE_INFO.title}`,
+  },
+  description: SITE_INFO.headline,
   keywords: [
     "Rujul Talekar",
     "AI Researcher",
@@ -19,30 +23,37 @@ export const metadata: Metadata = {
     "Human-Centered AI",
     "Video Management Systems",
     "Edge Video Analytics",
-    "Bufferbloat",
+    "Cellular Bufferbloat",
     "Computer Vision",
-    "VIT Pune"
+    "VIT Pune",
   ],
-  authors: [{ name: profile.name, url: socialLinks.github.url }],
-  creator: profile.name,
+  authors: [{ name: SITE_INFO.name, url: SITE_INFO.githubUrl }],
+  creator: SITE_INFO.name,
   icons: {
     icon: "/favicon.svg",
-    apple: "/icon.svg"
+    apple: "/icon.svg",
   },
   manifest: "/manifest.webmanifest",
   openGraph: {
-    type: "website",
+    type: "profile",
     locale: "en_US",
-    url: "https://roojool.github.io/portfolio",
-    title: `${profile.name} — ${profile.title}`,
-    description: profile.headline,
-    siteName: `${profile.name} Portfolio`
+    url: SITE_URL,
+    title: `${SITE_INFO.name} — ${SITE_INFO.title}`,
+    description: SITE_INFO.headline,
+    siteName: `${SITE_INFO.name} Portfolio`,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${profile.name} — ${profile.title}`,
-    description: profile.headline
-  }
+    title: `${SITE_INFO.name} — ${SITE_INFO.title}`,
+    description: SITE_INFO.headline,
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#09090b",
 };
 
 export default function RootLayout({
@@ -53,22 +64,23 @@ export default function RootLayout({
   const personJsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: profile.name,
-    jobTitle: profile.title,
+    name: SITE_INFO.name,
+    jobTitle: SITE_INFO.title,
     affiliation: {
       "@type": "EducationalOrganization",
-      name: profile.institution
+      name: profile.institution,
     },
     address: {
       "@type": "PostalAddress",
       addressLocality: "Pune",
-      addressCountry: "India"
+      addressRegion: "Maharashtra",
+      addressCountry: "India",
     },
-    url: "https://roojool.github.io/portfolio",
+    url: SITE_URL,
     sameAs: [
-      socialLinks.github.url,
-      socialLinks.linkedin.url,
-      socialLinks.orcid.url
+      SITE_INFO.githubUrl,
+      SITE_INFO.linkedinUrl,
+      SITE_INFO.orcidUrl,
     ],
     knowsAbout: [
       "Human-Centered AI",
@@ -76,28 +88,35 @@ export default function RootLayout({
       "Computer Vision",
       "Cellular Bufferbloat",
       "Network Telemetry",
-      "Edge Video Analytics"
-    ]
+      "Edge Video Analytics",
+    ],
   };
 
   return (
-    <html lang="en" suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${GeistSans.variable} ${GeistMono.variable}`}
+    >
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
       </head>
-      <body className="min-h-screen flex flex-col font-sans selection:bg-cyan-500 selection:text-white">
+      <body className="min-h-screen bg-background text-foreground antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <div className="group/layout relative isolate">
+            <Header />
+            <main className="max-w-screen overflow-x-clip px-2">{children}</main>
+            <Footer />
+            <MobileBottomNav />
+          </div>
         </ThemeProvider>
       </body>
     </html>

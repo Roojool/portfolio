@@ -1,90 +1,140 @@
-import React from "react";
-import Link from "next/link";
-import { Monogram } from "@/components/brand/monogram";
-import { socialLinks } from "@/data/links";
+import * as React from "react";
+import { RujulFooterLogotype } from "@/components/brand/brand-marks";
+import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
+import { Award, Rss } from "lucide-react";
+import { SITE_INFO } from "@/config/site";
+import { cn } from "@/lib/utils";
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="w-full border-t border-zinc-800/80 bg-zinc-950 dark:bg-zinc-950 light:bg-zinc-50 py-12 transition-colors">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-zinc-800/60">
-          <div className="flex items-center gap-3">
-            <Monogram size={30} className="text-cyan-400" />
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-zinc-200 dark:text-zinc-200 light:text-zinc-800">
-                Rujul Talekar
-              </p>
-              <p className="text-[11px] font-mono text-zinc-500">
-                AI Researcher × Systems Builder · Pune, India
-              </p>
-            </div>
-          </div>
+    <footer className="max-w-screen overflow-x-clip px-2">
+      <div className="mx-auto border-x md:max-w-3xl">
+        {/* Top Stripe Divider */}
+        <div className="screen-line-top screen-line-bottom">
+          <div className="stripe-divider h-12" />
+        </div>
 
-          <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-zinc-400">
+        {/* Two-column Definition List */}
+        <dl className="flex flex-col gap-3.5 py-8 font-mono text-xs sm:text-sm [&_dd]:text-foreground [&_dt]:text-right [&_dt]:text-muted-foreground">
+          <FooterRow label="Built by">
+            <span className="font-sans font-medium">{SITE_INFO.name}</span>
+          </FooterRow>
+
+          <FooterRow label="Based in">Pune, India</FooterRow>
+
+          <FooterRow label="Research">AI · HCI · VMS · Systems</FooterRow>
+
+          <FooterRow label="Deployed on">Vercel</FooterRow>
+
+          <FooterRow label="Source code">
             <a
-              href={socialLinks.github.url}
+              href={SITE_INFO.sourceCodeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-cyan-400 transition-colors"
+              className="link-underline"
             >
               GitHub
             </a>
-            <span className="text-zinc-700">/</span>
-            <a
-              href={socialLinks.linkedin.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-cyan-400 transition-colors"
-            >
-              LinkedIn
-            </a>
-            <span className="text-zinc-700">/</span>
-            <a
-              href={socialLinks.orcid.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-cyan-400 transition-colors"
-            >
-              ORCID
-            </a>
-            <span className="text-zinc-700">/</span>
-            <Link href="/feed.xml" className="hover:text-cyan-400 transition-colors">
-              RSS Feed
-            </Link>
-            <span className="text-zinc-700">/</span>
-            <Link href="/llms.txt" className="hover:text-cyan-400 transition-colors">
-              llms.txt
-            </Link>
-          </div>
-        </div>
+          </FooterRow>
 
-        <div className="pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[11px] font-mono text-zinc-500">
-          <p>© {currentYear} Rujul Talekar. All rights reserved.</p>
-          <p className="text-zinc-500 leading-relaxed text-left sm:text-right max-w-md">
-            Design inspiration:{" "}
+          <FooterRow label="ORCID">
             <a
-              href="https://www.prathadox.com/"
+              href={SITE_INFO.orcidUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="underline hover:text-zinc-300"
+              className="link-underline"
             >
-              prathadox.com
+              {SITE_INFO.orcid}
             </a>
-            . Portions of the architecture and interaction patterns were adapted from{" "}
+          </FooterRow>
+
+          <FooterRow label="License">
+            <span>MIT License</span>
+          </FooterRow>
+
+          <FooterRow label="Upstream">
             <a
               href="https://github.com/ncdai/chanhdai.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline hover:text-zinc-300"
+              className="link-underline text-muted-foreground hover:text-foreground"
             >
               ncdai/chanhdai.com
-            </a>{" "}
-            under the MIT License.
-          </p>
+            </a>
+          </FooterRow>
+        </dl>
+
+        {/* Bottom Social Icons Row */}
+        <div className="screen-line-top screen-line-bottom flex w-full before:z-1 after:z-1">
+          <div className="mx-auto flex items-center justify-center gap-4 border-x border-line bg-background px-6 py-2.5">
+            <a
+              href={SITE_INFO.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub Profile"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <GithubIcon className="size-4" />
+            </a>
+
+            <div className="h-4 w-px bg-line" />
+
+            <a
+              href={SITE_INFO.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn Profile"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <LinkedinIcon className="size-4" />
+            </a>
+
+            <div className="h-4 w-px bg-line" />
+
+            <a
+              href={SITE_INFO.orcidUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="ORCID Record"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <Award className="size-4" />
+            </a>
+
+            <div className="h-4 w-px bg-line" />
+
+            <a
+              href="/feed.xml"
+              aria-label="RSS Feed"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <Rss className="size-4" />
+            </a>
+          </div>
         </div>
       </div>
+
+      {/* Decorative Interactive RUJUL Logotype */}
+      <RujulFooterLogotype />
+
+      <div className="h-14 sm:h-20" />
     </footer>
+  );
+}
+
+function FooterRow({
+  label,
+  children,
+  className,
+}: {
+  label: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn("grid grid-cols-2 gap-4 px-4", className)}>
+      <dt>{label}</dt>
+      <dd>{children}</dd>
+    </div>
   );
 }

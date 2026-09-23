@@ -1,71 +1,69 @@
-import { HeroSection } from "@/components/sections/hero";
-import { AboutSection } from "@/components/sections/about-section";
-import { CurrentResearchSection } from "@/components/sections/current-research";
-import { ExperienceSection } from "@/components/sections/experience-timeline";
-import { SelectedResearchSection } from "@/components/sections/selected-research";
-import { EngineeringProjectsSection } from "@/components/sections/engineering-projects";
-import { PublicationsSection } from "@/components/sections/publications-section";
-import { PatentSection } from "@/components/sections/patent-section";
-import { OpenSourceSection } from "@/components/sections/open-source-section";
-import { EducationSection } from "@/components/sections/education-section";
-import { SkillsMatrixSection } from "@/components/sections/skills-matrix";
-import { GitHubActivitySection } from "@/components/sections/github-activity";
-import { WritingSection } from "@/components/sections/writing-section";
-import { ContactSection } from "@/components/sections/contact-section";
-import { fetchGitHubTelemetry } from "@/lib/github";
+import { ProfileHeader } from "@/components/sections/profile-header";
+import { OverviewPanel } from "@/components/sections/overview-panel";
+import { SocialLinksPanel } from "@/components/sections/social-links-panel";
+import { GitHubContributionsPanel } from "@/components/sections/github-contributions-panel";
+import { AboutPanel } from "@/components/sections/about-panel";
+import { ResearchPanel } from "@/components/sections/research-panel";
+import { TechStackPanel } from "@/components/sections/tech-stack-panel";
+import { ExperiencePanel } from "@/components/sections/experience-panel";
+import { EducationPanel } from "@/components/sections/education-panel";
+import { ProjectsPanel } from "@/components/sections/projects-panel";
+import { PublicationsPanel } from "@/components/sections/publications-panel";
+import { PatentPanel } from "@/components/sections/patent-panel";
+import { WritingPanel } from "@/components/sections/writing-panel";
+import { StripeSeparator } from "@/components/ui/separator";
 import { getAllWritingPosts } from "@/lib/mdx";
 
-export const revalidate = 3600; // 1 hour edge revalidation
+export const revalidate = 3600; // 1 hour ISR
 
 export default async function HomePage() {
-  const [telemetry, posts] = await Promise.all([
-    fetchGitHubTelemetry(),
-    getAllWritingPosts()
-  ]);
+  const posts = await getAllWritingPosts();
 
   return (
-    <div className="flex flex-col">
-      {/* 01 Hero */}
-      <HeroSection />
+    <div className="[--separator-height:2rem] **:data-[slot=panel]:scroll-mt-[calc(var(--header-height)+var(--separator-height))]">
+      <div className="mx-auto md:max-w-3xl">
+        {/* 01 Profile Header */}
+        <ProfileHeader />
+        <StripeSeparator />
 
-      {/* 02 About */}
-      <AboutSection />
+        {/* 02 Overview, Social Links, and GitHub Contributions */}
+        <OverviewPanel />
+        <SocialLinksPanel />
+        <GitHubContributionsPanel />
+        <StripeSeparator />
 
-      {/* 03 Current Research */}
-      <CurrentResearchSection />
+        {/* 03 About & Research Vectors */}
+        <AboutPanel />
+        <ResearchPanel />
+        <StripeSeparator />
 
-      {/* 04 Experience */}
-      <ExperienceSection />
+        {/* 04 Tech Stack */}
+        <TechStackPanel />
+        <StripeSeparator />
 
-      {/* 05 Selected Research */}
-      <SelectedResearchSection />
+        {/* 05 Experience */}
+        <ExperiencePanel />
+        <StripeSeparator />
 
-      {/* 06 Engineering Projects */}
-      <EngineeringProjectsSection />
+        {/* 06 Education */}
+        <EducationPanel />
+        <StripeSeparator />
 
-      {/* 07 Publications */}
-      <PublicationsSection />
+        {/* 07 Projects */}
+        <ProjectsPanel />
+        <StripeSeparator />
 
-      {/* 08 Patents */}
-      <PatentSection />
+        {/* 08 Publications */}
+        <PublicationsPanel />
+        <StripeSeparator />
 
-      {/* 09 Open Source */}
-      <OpenSourceSection />
+        {/* 09 Intellectual Property / Patents */}
+        <PatentPanel />
+        <StripeSeparator />
 
-      {/* 10 Education */}
-      <EducationSection />
-
-      {/* 11 Skills / Tooling */}
-      <SkillsMatrixSection />
-
-      {/* 12 GitHub Activity */}
-      <GitHubActivitySection telemetry={telemetry} />
-
-      {/* 13 Writing / Notes */}
-      <WritingSection posts={posts} />
-
-      {/* 14 Contact */}
-      <ContactSection />
+        {/* 10 Writing / Research Notes */}
+        <WritingPanel posts={posts} />
+      </div>
     </div>
   );
 }

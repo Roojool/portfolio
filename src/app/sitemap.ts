@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 import { getAllWritingPosts } from "@/lib/mdx";
+import { SITE_URL } from "@/config/site";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://roojool.github.io/portfolio";
+  const baseUrl = SITE_URL;
   const posts = await getAllWritingPosts();
 
   const staticRoutes: MetadataRoute.Sitemap = [

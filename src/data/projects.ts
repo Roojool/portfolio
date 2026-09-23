@@ -9,6 +9,10 @@ export interface ProjectItem {
   stack: string[];
   featured: boolean;
   demoUrl?: string;
+  period?: {
+    start: string;
+    end?: string;
+  };
   highlights?: string[];
 }
 
@@ -24,10 +28,37 @@ export const projects: ProjectItem[] = [
     status: "EXPERIMENTAL",
     stack: ["Android", "Kotlin", "Java", "Networking", "Telemetry"],
     featured: true,
+    period: { start: "2025" },
     highlights: [
       "Investigates round-trip latency behavior under controlled network load.",
       "Implements lightweight mobile telemetry to measure transport behavior without synthetic kernel modifications.",
       "Separates configured/API-visible transport state from measurements that still require physical validation."
+    ]
+  },
+  {
+    id: "frigate-vms-lab",
+    name: "Frigate-VMS-Lab",
+    repo: "Roojool/Frigate-VMS-Lab",
+    url: "https://github.com/Roojool/Frigate-VMS-Lab",
+    domain: "Video Management Systems / Experimental Tooling",
+    description:
+      "Experimental VMS research tooling for Frigate, RTSP pipelines, integrated go2rtc, telemetry collection and reproducible benchmarking.",
+    status: "EARLY RESEARCH TOOLING",
+    stack: [
+      "Python",
+      "Frigate",
+      "Docker",
+      "RTSP",
+      "go2rtc",
+      "FFmpeg",
+      "Telemetry"
+    ],
+    featured: true,
+    period: { start: "2026" },
+    highlights: [
+      "Automated harness for deploying containerized Frigate NVR instances alongside simulated camera workloads.",
+      "Integrates go2rtc stream multiplexing and RTSP re-streaming to profile live ingest behavior.",
+      "Provides structured tooling for reproducible telemetry collection without premature physical claims."
     ]
   },
   {
@@ -41,6 +72,7 @@ export const projects: ProjectItem[] = [
     status: "ACTIVE SHOWCASE",
     stack: ["Computer Vision", "Video Analytics", "VMS Architectures", "Web Architecture"],
     featured: true,
+    period: { start: "2025" },
     highlights: [
       "Systematic catalog of 28 distinct perceptual video analytics capabilities.",
       "Visual verification matrix detailing operational constraints and edge inference limits.",
@@ -58,6 +90,7 @@ export const projects: ProjectItem[] = [
     status: "ACTIVE SHOWCASE",
     stack: ["CCTV", "VMS Architectures", "Surveillance Systems", "Editorial Analysis"],
     featured: true,
+    period: { start: "2025" },
     highlights: [
       "Explores architectural layers of large-scale camera telemetry and video ingest pipelines.",
       "Analyzes network bandwidth trade-offs, storage retention math, and distributed NVR topologies.",
@@ -75,6 +108,7 @@ export const projects: ProjectItem[] = [
     status: "PUBLISHED GUIDE",
     stack: ["Android", "5G Hotspot", "Windows Networking", "Routing Optimization"],
     featured: false,
+    period: { start: "2024" },
     highlights: [
       "Documents practical Android hotspot and tethering configuration for Indian 5G networks.",
       "Focuses on signal quality, hotspot configuration, packet loss, jitter, and repeatable troubleshooting."

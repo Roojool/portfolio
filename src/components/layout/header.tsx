@@ -2,81 +2,86 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Wordmark } from "@/components/brand/wordmark";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { usePathname } from "next/navigation";
+import { RujulMark } from "@/components/brand/brand-marks";
 import { CommandMenu } from "@/components/command-palette/command-menu";
-import { Menu, X } from "lucide-react";
-
-const navLinks = [
-  { label: "About", href: "/#about" },
-  { label: "Research", href: "/#research" },
-  { label: "Projects", href: "/#projects" },
-  { label: "Publications", href: "/#publications" },
-  { label: "Writing", href: "/#writing" },
-  { label: "Contact", href: "/#contact" }
-];
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { Separator } from "@/components/ui/separator";
+import { GithubIcon } from "@/components/ui/icons";
+import { MAIN_NAV, SITE_INFO } from "@/config/site";
+import { cn } from "@/lib/utils";
 
 export function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-zinc-800/80 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-white/80 backdrop-blur-md transition-colors">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
-        <Wordmark />
+    <header className="sticky top-0 z-50 max-w-screen overflow-x-clip bg-background px-2">
+      <div className="screen-line-top screen-line-bottom mx-auto flex h-[var(--header-height)] items-center gap-2 border-x screen-line-bottom-border screen-line-top-border pr-2 pl-4 sm:gap-4 md:max-w-3xl">
+        {/* Brand Mark */}
+        <Link href="/" aria-label="Rujul Talekar Home" className="flex items-center">
+          <RujulMark className="h-6 w-12 shrink-0 text-foreground transition-opacity hover:opacity-80" />
+        </Link>
+
+        <div className="flex-1" />
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6 text-xs font-mono">
-          {navLinks.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className="text-zinc-400 hover:text-cyan-400 dark:hover:text-cyan-400 light:hover:text-cyan-600 transition-colors"
-            >
-              {item.label}
-            </Link>
-          ))}
+        <nav className="hidden sm:flex items-center gap-4 text-xs sm:text-sm font-medium tracking-wide">
+          {MAIN_NAV.map(({ title, href }) => {
+            const isActive =
+              href === "/"
+                ? pathname === "/"
+                : pathname?.startsWith(href);
+
+            return (
+              <Link
+                key={href}
+                href={href}
+                aria-current={isActive ? "page" : undefined}
+                className={cn(
+                  "transition-colors hover:text-foreground",
+                  isActive
+                    ? "text-foreground font-semibold"
+                    : "text-muted-foreground"
+                )}
+              >
+                {title}
+              </Link>
+            );
+          })}
         </nav>
 
-        {/* Right Actions */}
-        <div className="flex items-center gap-2">
+        {/* Separator & Controls */}
+        <div className="flex items-center">
+          <Separator
+            orientation="vertical"
+            className="mr-1.5 sm:mr-2 h-4 sm:h-5 self-center"
+          />
+
           <CommandMenu />
-          <ThemeToggle />
-          
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-8 h-8 rounded border border-zinc-800 bg-zinc-900/60 flex items-center justify-center text-zinc-400 hover:text-white"
-            aria-label="Toggle Navigation Menu"
+
+          <Separator
+            orientation="vertical"
+            className="mx-1.5 sm:mx-2 h-4 sm:h-5 self-center"
+          />
+
+          <a
+            href={SITE_INFO.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub Profile"
+            className="flex size-8 items-center justify-center rounded-md text-muted-foreground hover:text-foreground transition-colors"
           >
-            {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
-          </button>
+            <GithubIcon className="size-4" />
+          </a>
+
+          <Separator
+            orientation="vertical"
+            className="mx-1.5 sm:mx-2 h-4 sm:h-5 self-center"
+          />
+
+          <ThemeToggle />
         </div>
       </div>
-
-      {/* Mobile Dropdown Menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden border-b border-zinc-800 bg-zinc-950/95 dark:bg-zinc-950/95 light:bg-white/95 px-4 py-4 space-y-3 font-mono text-xs animate-in slide-in-from-top-2">
-          {navLinks.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className="block py-1.5 text-zinc-300 hover:text-cyan-400"
-            >
-              {item.label}
-            </Link>
-          ))}
-          <div className="pt-2 border-t border-zinc-800/80 flex items-center gap-4 text-zinc-500">
-            <Link href="/research" onClick={() => setMobileMenuOpen(false)}>
-              All Research
-            </Link>
-            <Link href="/writing" onClick={() => setMobileMenuOpen(false)}>
-              All Writing
-            </Link>
-            <Link href="/llms.txt">llms.txt</Link>
-          </div>
-        </div>
-      )}
     </header>
   );
 }

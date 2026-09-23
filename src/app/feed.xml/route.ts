@@ -1,28 +1,27 @@
 import { NextResponse } from "next/server";
 import { Feed } from "feed";
 import { getAllWritingPosts } from "@/lib/mdx";
-import { profile } from "@/data/profile";
-import { socialLinks } from "@/data/links";
+import { SITE_INFO, SITE_URL } from "@/config/site";
 
 export const dynamic = "force-static";
 
 export async function GET() {
-  const baseUrl = "https://roojool.github.io/portfolio";
+  const baseUrl = SITE_URL;
   const posts = await getAllWritingPosts();
 
   const feed = new Feed({
-    title: `${profile.name} — Research Notes & Systems Writing`,
-    description: profile.headline,
+    title: `${SITE_INFO.name} — Research Notes & Systems Writing`,
+    description: SITE_INFO.headline,
     id: baseUrl,
     link: baseUrl,
     language: "en",
     image: `${baseUrl}/icon.svg`,
     favicon: `${baseUrl}/favicon.svg`,
-    copyright: `All rights reserved ${new Date().getFullYear()}, ${profile.name}`,
+    copyright: `All rights reserved ${new Date().getFullYear()}, ${SITE_INFO.name}`,
     author: {
-      name: profile.name,
-      link: socialLinks.github.url
-    }
+      name: SITE_INFO.name,
+      link: SITE_INFO.githubUrl,
+    },
   });
 
   posts.forEach((post) => {
@@ -34,11 +33,11 @@ export async function GET() {
       content: post.content,
       author: [
         {
-          name: post.author || profile.name,
-          link: socialLinks.github.url
-        }
+          name: post.author || SITE_INFO.name,
+          link: SITE_INFO.githubUrl,
+        },
       ],
-      date: new Date(post.publishedAt)
+      date: new Date(post.publishedAt),
     });
   });
 
@@ -46,7 +45,7 @@ export async function GET() {
     status: 200,
     headers: {
       "Content-Type": "application/xml; charset=utf-8",
-      "Cache-Control": "public, max-age=3600, s-maxage=3600"
-    }
+      "Cache-Control": "public, max-age=3600, s-maxage=3600",
+    },
   });
 }

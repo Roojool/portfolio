@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { cn } from "@/lib/utils";
 
-export function ThemeToggle({ className = "" }: { className?: string }) {
+export function ThemeToggle({ className }: { className?: string }) {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
@@ -12,31 +12,29 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return (
-      <button
-        aria-label="Toggle theme"
-        className={`w-8 h-8 rounded border border-zinc-800 bg-zinc-900/50 flex items-center justify-center text-zinc-400 opacity-60 ${className}`}
-        disabled
-      >
-        <Moon className="w-4 h-4" />
-      </button>
-    );
-  }
-
-  const isDark = resolvedTheme === "dark";
+  const switchTheme = () => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+  };
 
   return (
     <button
-      onClick={() => setTheme(isDark ? "light" : "dark")}
-      aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
-      className={`w-8 h-8 rounded border border-zinc-800 dark:border-zinc-800 light:border-zinc-200 bg-zinc-900/70 dark:bg-zinc-900/70 light:bg-zinc-100 flex items-center justify-center text-zinc-400 hover:text-cyan-400 dark:hover:text-cyan-400 light:hover:text-cyan-600 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400 ${className}`}
-    >
-      {isDark ? (
-        <Sun className="w-4 h-4 transition-transform hover:rotate-45" />
-      ) : (
-        <Moon className="w-4 h-4 transition-transform hover:-rotate-12" />
+      type="button"
+      onClick={switchTheme}
+      aria-label="Toggle theme mode"
+      title={mounted ? `Toggle ${resolvedTheme === "dark" ? "light" : "dark"} mode` : "Toggle mode"}
+      className={cn(
+        "relative flex size-8 items-center justify-center rounded-md text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground/50 cursor-pointer",
+        className
       )}
+    >
+      <svg
+        className="size-4 text-current transition-transform duration-300 dark:rotate-180"
+        viewBox="0 0 32 32"
+        fill="currentColor"
+        aria-hidden
+      >
+        <path d="M16 .5C7.4.5.5 7.4.5 16S7.4 31.5 16 31.5 31.5 24.6 31.5 16 24.6.5 16 .5zm0 28.1V3.4C23 3.4 28.6 9 28.6 16S23 28.6 16 28.6z" />
+      </svg>
     </button>
   );
 }
