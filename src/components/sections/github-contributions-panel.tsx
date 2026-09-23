@@ -103,7 +103,7 @@ export async function GitHubContributionsPanel() {
     }
   });
 
-  const blockSize = 11;
+  const blockSize = 12;
   const blockMargin = 2;
   const step = blockSize + blockMargin;
   const graphWidth = weeks.length * step;
@@ -117,7 +117,7 @@ export async function GitHubContributionsPanel() {
         {/* Scrollable container for mobile */}
         <div className="overflow-x-auto px-4 no-scrollbar">
           <svg
-            className="w-full min-w-[650px] overflow-visible"
+            className="w-full min-w-[700px] overflow-visible"
             viewBox={`0 0 ${graphWidth} ${graphHeight}`}
             fill="none"
             aria-label="GitHub Contributions Graph"
@@ -157,7 +157,7 @@ export async function GitHubContributionsPanel() {
         </div>
 
         {/* Figure Caption & Legend */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 pt-4 text-xs font-mono border-t border-line mt-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 pt-4 text-sm font-mono border-t border-line mt-2">
           <figcaption className="text-muted-foreground tabular-nums">
             <span className="mr-2 text-foreground font-medium">Fig. 2.</span>
             {totalCount.toLocaleString()} contributions, {startDate} – {endDate}. Source:{" "}

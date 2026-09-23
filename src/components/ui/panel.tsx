@@ -1,10 +1,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-export function Panel({
-  className,
-  ...props
-}: React.ComponentProps<"section">) {
+function Panel({ className, ...props }: React.ComponentProps<"section">) {
   return (
     <section
       data-slot="panel"
@@ -17,10 +14,7 @@ export function Panel({
   );
 }
 
-export function PanelHeader({
-  className,
-  ...props
-}: React.ComponentProps<"header">) {
+function PanelHeader({ className, ...props }: React.ComponentProps<"header">) {
   return (
     <header
       data-slot="panel-header"
@@ -33,7 +27,7 @@ export function PanelHeader({
   );
 }
 
-export function PanelTitle({
+function PanelTitle({
   as: Comp = "h2",
   className,
   ...props
@@ -42,7 +36,7 @@ export function PanelTitle({
     <Comp
       data-slot="panel-title"
       className={cn(
-        "group/panel-title font-heading text-2xl sm:text-3xl font-medium tracking-tight text-balance text-foreground",
+        "group/panel-title font-heading text-3xl font-medium tracking-tight text-balance",
         className
       )}
       {...props}
@@ -50,10 +44,7 @@ export function PanelTitle({
   );
 }
 
-export function PanelTitleSup({
-  className,
-  ...props
-}: React.ComponentProps<"sup">) {
+function PanelTitleSup({ className, ...props }: React.ComponentProps<"sup">) {
   return (
     <sup
       className={cn(
@@ -65,7 +56,7 @@ export function PanelTitleSup({
   );
 }
 
-export function PanelDescription({
+function PanelDescription({
   className,
   ...props
 }: React.ComponentProps<"div">) {
@@ -73,7 +64,7 @@ export function PanelDescription({
     <div
       data-slot="panel-description"
       className={cn(
-        "py-4 text-sm sm:text-base text-balance text-muted-foreground",
+        "py-4 text-base text-balance text-muted-foreground",
         className
       )}
       {...props}
@@ -81,11 +72,17 @@ export function PanelDescription({
   );
 }
 
-export function PanelContent({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+function PanelContent({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div data-slot="panel-body" className={cn("p-4", className)} {...props} />
   );
 }
+
+export {
+  Panel,
+  PanelContent,
+  PanelDescription,
+  PanelHeader,
+  PanelTitle,
+  PanelTitleSup,
+};

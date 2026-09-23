@@ -3,17 +3,20 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-interface FlipSentencesProps {
-  sentences: string[];
-  className?: string;
+interface FlipSentencesProps extends Omit<React.ComponentProps<"div">, "children"> {
+  children?: string[];
+  sentences?: string[];
   intervalMs?: number;
 }
 
 export function FlipSentences({
-  sentences,
+  children,
+  sentences: sentencesProp,
   className,
   intervalMs = 3200,
+  ...props
 }: FlipSentencesProps) {
+  const items = children ?? sentencesProp ?? [];
   const [index, setIndex] = React.useState(0);
   const [isReduced, setIsReduced] = React.useState(false);
 
@@ -26,26 +29,24 @@ export function FlipSentences({
   }, []);
 
   React.useEffect(() => {
-    if (isReduced || sentences.length <= 1) return;
+    if (isReduced || items.length <= 1) return;
     const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % sentences.length);
+      setIndex((prev) => (prev + 1) % items.length);
     }, intervalMs);
     return () => clearInterval(timer);
-  }, [isReduced, sentences.length, intervalMs]);
+  }, [isReduced, items.length, intervalMs]);
 
-  const activeSentence = sentences[index] ?? sentences[0];
+  const activeSentence = items[index] ?? items[0] ?? "";
 
   return (
     <div
-      className={cn(
-        "flex items-center text-xs sm:text-sm font-mono text-muted-foreground overflow-hidden",
-        className
-      )}
+      className={cn("flex items-center overflow-hidden", className)}
       aria-live="polite"
+      {...props}
     >
       <span
         key={index}
-        className="transition-opacity duration-300 ease-in-out truncate"
+        className="font-mono text-sm text-balance text-muted-foreground transition-opacity duration-300 ease-in-out"
       >
         {activeSentence}
       </span>

@@ -1,65 +1,77 @@
 import * as React from "react";
-import { Rss, Award } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
+import { Rss, Fingerprint } from "lucide-react";
 import { Panel, PanelContent } from "@/components/ui/panel";
+import { Button } from "@/components/ui/button";
+import {
+  HandwrittenArrow,
+  HandwrittenNote,
+} from "@/components/handwritten-note";
+import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
 import { SITE_INFO } from "@/config/site";
 
+const SOCIAL_ITEMS = [
+  {
+    title: "GitHub",
+    handle: "@Roojool",
+    href: SITE_INFO.githubUrl,
+    icon: <GithubIcon className="size-4" />,
+  },
+  {
+    title: "LinkedIn",
+    handle: "rujul-talekar",
+    href: SITE_INFO.linkedinUrl,
+    icon: <LinkedinIcon className="size-4" />,
+  },
+  {
+    title: "ORCID",
+    handle: SITE_INFO.orcid,
+    href: SITE_INFO.orcidUrl,
+    icon: <Fingerprint className="size-4" />,
+  },
+  {
+    title: "RSS Feed",
+    handle: "feed.xml",
+    href: "/feed.xml",
+    icon: <Rss className="size-4" />,
+  },
+];
+
 export function SocialLinksPanel() {
-  const links = [
-    {
-      name: "GitHub",
-      href: SITE_INFO.githubUrl,
-      icon: <GithubIcon className="size-4" />,
-      label: "GitHub (@Roojool)",
-    },
-    {
-      name: "LinkedIn",
-      href: SITE_INFO.linkedinUrl,
-      icon: <LinkedinIcon className="size-4" />,
-      label: "LinkedIn (/in/rujul-talekar)",
-    },
-    {
-      name: "ORCID",
-      href: SITE_INFO.orcidUrl,
-      icon: <Award className="size-4" />,
-      label: `ORCID (${SITE_INFO.orcid})`,
-    },
-    {
-      name: "RSS",
-      href: "/feed.xml",
-      icon: <Rss className="size-4" />,
-      label: "RSS Feed",
-    },
-  ];
-
   return (
-    <Panel className="screen-line-top-none screen-line-bottom-none">
-      <h2 className="sr-only">Social Links</h2>
+    <Panel className="relative">
+      <h2 className="sr-only">Social links</h2>
 
-      <PanelContent className="flex items-center justify-between">
+      <PanelContent>
         <ul className="flex flex-wrap gap-2">
-          {links.map((item) => (
-            <li key={item.name}>
-              <a
-                href={item.href}
-                target={item.href.startsWith("http") ? "_blank" : undefined}
-                rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                aria-label={item.label}
-                title={item.label}
-                className="flex size-8 sm:size-9 items-center justify-center rounded-md border border-border bg-background text-muted-foreground hover:text-foreground hover:border-foreground/40 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground/50"
-              >
-                {item.icon}
-              </a>
+          {SOCIAL_ITEMS.map((item) => (
+            <li key={item.title}>
+              <Button
+                className="text-foreground/80 shadow-none [&_svg:not([class*='size-'])]:size-4.5"
+                variant="outline"
+                size="icon-sm"
+                nativeButton={false}
+                render={
+                  <a
+                    href={item.href}
+                    target={item.href.startsWith("http") ? "_blank" : undefined}
+                    rel="noopener noreferrer"
+                    aria-label={`${item.title} (${item.handle})`}
+                    title={`${item.title} (${item.handle})`}
+                  >
+                    {item.icon}
+                    <span className="sr-only">{item.title}</span>
+                  </a>
+                }
+              />
             </li>
           ))}
         </ul>
-
-        {/* Original side annotation */}
-        <div className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-muted-foreground/80 select-none">
-          <span>research traces</span>
-          <span aria-hidden>→</span>
-        </div>
       </PanelContent>
+
+      <HandwrittenNote className="-top-3.5 right-full mr-4 hidden w-28 flex-col items-end lg:flex">
+        <span className="-rotate-6 whitespace-nowrap">research traces</span>
+        <HandwrittenArrow className="size-7 translate-x-3 -scale-x-100 -rotate-6" />
+      </HandwrittenNote>
     </Panel>
   );
 }

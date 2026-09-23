@@ -1,140 +1,268 @@
 import * as React from "react";
-import { RujulFooterLogotype } from "@/components/brand/brand-marks";
+import Link from "next/link";
+import { Rss, Fingerprint } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
-import { Award, Rss } from "lucide-react";
+import { RujulMark } from "@/components/brand/brand-marks";
+import { RujulFooterInteractiveLogotype } from "./footer-brand";
+import { getBuildInfo, getStack } from "@/lib/build-info";
 import { SITE_INFO } from "@/config/site";
 import { cn } from "@/lib/utils";
 
+const INSPIRED_BY = [
+  "ncdai/chanhdai.com",
+  "shadcn/ui",
+  "Tailwind CSS",
+  "Vercel",
+];
+
+const SITE_TITLE = "rujul-talekar";
+const SITE_SUBTITLE = "AI research, systems engineering, and experimental software.";
+
 export function Footer() {
+  const build = getBuildInfo();
+  const stack = getStack();
+
   return (
     <footer className="max-w-screen overflow-x-clip px-2">
-      <div className="mx-auto border-x md:max-w-3xl">
-        {/* Top Stripe Divider */}
-        <div className="screen-line-top screen-line-bottom">
+      <div className="mx-auto border-x group-has-data-[slot=layout-wide]/layout:container md:max-w-3xl">
+        {/* Stripe divider header */}
+        <div className="screen-line-top screen-line-bottom screen-line-top-border before:z-1">
           <div className="stripe-divider h-12" />
         </div>
 
-        {/* Two-column Definition List */}
-        <dl className="flex flex-col gap-3.5 py-8 font-mono text-xs sm:text-sm [&_dd]:text-foreground [&_dt]:text-right [&_dt]:text-muted-foreground">
-          <FooterRow label="Built by">
-            <span className="font-sans font-medium">{SITE_INFO.name}</span>
-          </FooterRow>
-
-          <FooterRow label="Based in">Pune, India</FooterRow>
-
-          <FooterRow label="Research">AI · HCI · VMS · Systems</FooterRow>
-
-          <FooterRow label="Deployed on">Vercel</FooterRow>
-
-          <FooterRow label="Source code">
-            <a
-              href={SITE_INFO.sourceCodeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-underline"
-            >
-              GitHub
-            </a>
-          </FooterRow>
-
-          <FooterRow label="ORCID">
-            <a
-              href={SITE_INFO.orcidUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-underline"
-            >
-              {SITE_INFO.orcid}
-            </a>
-          </FooterRow>
-
-          <FooterRow label="License">
-            <span>MIT License</span>
-          </FooterRow>
-
-          <FooterRow label="Upstream">
-            <a
-              href="https://github.com/ncdai/chanhdai.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-underline text-muted-foreground hover:text-foreground"
-            >
-              ncdai/chanhdai.com
-            </a>
-          </FooterRow>
-        </dl>
-
-        {/* Bottom Social Icons Row */}
-        <div className="screen-line-top screen-line-bottom flex w-full before:z-1 after:z-1">
-          <div className="mx-auto flex items-center justify-center gap-4 border-x border-line bg-background px-6 py-2.5">
-            <a
-              href={SITE_INFO.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub Profile"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <GithubIcon className="size-4" />
-            </a>
-
-            <div className="h-4 w-px bg-line" />
-
-            <a
-              href={SITE_INFO.linkedinUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn Profile"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <LinkedinIcon className="size-4" />
-            </a>
-
-            <div className="h-4 w-px bg-line" />
-
-            <a
-              href={SITE_INFO.orcidUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="ORCID Record"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Award className="size-4" />
-            </a>
-
-            <div className="h-4 w-px bg-line" />
-
-            <a
-              href="/feed.xml"
-              aria-label="RSS Feed"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Rss className="size-4" />
-            </a>
+        {/* CAD Title Block */}
+        <div className="relative">
+          {/* Top Title Bar */}
+          <div className="screen-line-bottom flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-4 py-3 font-mono text-sm">
+            <span className="font-medium text-foreground">{SITE_TITLE}</span>
+            <span className="font-sans text-xs text-muted-foreground">
+              {SITE_SUBTITLE}
+            </span>
           </div>
+
+          {/* 4x4 Technical Metadata Grid */}
+          <dl className="grid grid-cols-2 gap-px bg-line font-mono md:grid-cols-4">
+            <Field label="Crafted by">
+              <span className="font-medium">{SITE_INFO.name}</span>
+            </Field>
+
+            <Field label="Build">
+              {build.commitShortSha ? (
+                build.commitUrl ? (
+                  <a
+                    className="link-underline"
+                    href={build.commitUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {build.commitShortSha}
+                  </a>
+                ) : (
+                  build.commitShortSha
+                )
+              ) : (
+                <span className="text-muted-foreground">unavailable</span>
+              )}
+            </Field>
+
+            <Field label="Date">
+              <time dateTime={build.date}>{build.date}</time>
+            </Field>
+
+            <Field label="Research">5 active vectors</Field>
+
+            <Field label="Deployed on">
+              <span className="font-sans flex items-center gap-1.5" aria-hidden>
+                ▲ <span>Vercel</span>
+              </span>
+            </Field>
+
+            <Field label="Source code">
+              <a
+                className="link-underline"
+                href={SITE_INFO.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub
+              </a>
+            </Field>
+
+            <Field label="License">
+              <span className="text-muted-foreground">MIT License</span>
+            </Field>
+
+            <Field label="Typeface">Geist</Field>
+
+            <Field className="col-span-2" label="Stack">
+              <ul className="flex flex-wrap gap-x-2 gap-y-0.5">
+                {stack.map((entry, i) => (
+                  <li key={entry}>
+                    {entry}
+                    {i < stack.length - 1 && (
+                      <span className="text-muted-foreground/60 ml-2">·</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </Field>
+
+            <Field label="For agents">
+              <ul className="flex flex-col gap-0.5">
+                <li>
+                  <a className="link-underline" href="/llms.txt">
+                    llms.txt
+                  </a>
+                </li>
+                <li>
+                  <a className="link-underline" href="/feed.xml">
+                    feed.xml
+                  </a>
+                </li>
+              </ul>
+            </Field>
+
+            <Field label="Identity">
+              <ul className="flex flex-col gap-0.5">
+                <li>
+                  <a
+                    className="link-underline"
+                    href={SITE_INFO.orcidUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ORCID
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="link-underline"
+                    href={SITE_INFO.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    LinkedIn
+                  </a>
+                </li>
+              </ul>
+            </Field>
+
+            {/* Inspired By */}
+            <Field className="col-span-2 md:col-span-4" label="Inspired by">
+              <ol className="-mx-4 grid grid-cols-2 gap-x-px gap-y-0.5 font-sans md:grid-cols-4">
+                {INSPIRED_BY.map((name, index) => (
+                  <li className="flex gap-2 px-4" key={name}>
+                    <span
+                      className="font-mono text-muted-foreground/80 select-none"
+                      aria-hidden
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="truncate">{name}</span>
+                  </li>
+                ))}
+              </ol>
+            </Field>
+          </dl>
+        </div>
+
+        <div className="screen-line-top h-4" />
+
+        {/* Social Icon Strip */}
+        <div className="screen-line-top screen-line-bottom flex items-center gap-3 screen-line-bottom-border px-4 py-3 text-muted-foreground">
+          <Link
+            href="/"
+            className="mr-auto text-muted-foreground transition-[color] hover:text-foreground"
+            aria-label="Home"
+          >
+            <RujulMark className="h-4 w-8 shrink-0 text-foreground" />
+          </Link>
+
+          <a
+            className="flex items-center transition-[color] hover:text-foreground"
+            href={SITE_INFO.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub Profile"
+          >
+            <GithubIcon className="size-4" />
+          </a>
+
+          <Separator
+            orientation="vertical"
+            className="data-vertical:h-4 data-vertical:self-center"
+          />
+
+          <a
+            className="flex items-center transition-[color] hover:text-foreground"
+            href={SITE_INFO.linkedinUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn Profile"
+          >
+            <LinkedinIcon className="size-4" />
+          </a>
+
+          <Separator
+            orientation="vertical"
+            className="data-vertical:h-4 data-vertical:self-center"
+          />
+
+          <a
+            className="flex items-center transition-[color] hover:text-foreground"
+            href={SITE_INFO.orcidUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="ORCID Profile"
+          >
+            <Fingerprint className="size-4" />
+          </a>
+
+          <Separator
+            orientation="vertical"
+            className="data-vertical:h-4 data-vertical:self-center"
+          />
+
+          <a
+            className="flex items-center transition-[color] hover:text-foreground"
+            href="/feed.xml"
+            aria-label="RSS Feed"
+          >
+            <Rss className="size-4" />
+          </a>
         </div>
       </div>
 
-      {/* Decorative Interactive RUJUL Logotype */}
-      <RujulFooterLogotype />
+      {/* Gigantic Interactive Outline RUJUL Logotype */}
+      <RujulFooterInteractiveLogotype />
 
-      <div className="h-14 sm:h-20" />
+      <div className="h-8" />
+      <div className="pb-[env(safe-area-inset-bottom,0)]" />
     </footer>
   );
 }
 
-function FooterRow({
+function Field({
+  className,
   label,
   children,
-  className,
 }: {
+  className?: string;
   label: string;
   children: React.ReactNode;
-  className?: string;
 }) {
   return (
-    <div className={cn("grid grid-cols-2 gap-4 px-4", className)}>
-      <dt>{label}</dt>
-      <dd>{children}</dd>
+    <div
+      className={cn(
+        "flex min-w-0 flex-col gap-1 bg-background px-4 py-3",
+        className
+      )}
+    >
+      <dt className="text-[0.625rem]/4 font-medium tracking-wider text-muted-foreground uppercase select-none">
+        {label}
+      </dt>
+      <dd className="text-sm">{children}</dd>
     </div>
   );
 }

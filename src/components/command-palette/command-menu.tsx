@@ -19,6 +19,8 @@ import {
   Command as CommandIcon,
 } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
+import { Button } from "@/components/ui/button";
+import { Kbd, KbdGroup } from "@/components/ui/kbd";
 import { SITE_INFO } from "@/config/site";
 
 export function CommandMenu() {
@@ -45,15 +47,21 @@ export function CommandMenu() {
 
   return (
     <>
-      <button
-        type="button"
+      <Button
+        data-slot="command-menu-trigger"
+        className="gap-1.5 border-none px-1.5 text-muted-foreground select-none cursor-pointer"
+        variant="ghost"
+        size="sm"
         onClick={() => setOpen(true)}
-        aria-label="Open command palette (Cmd+K)"
-        title="Search commands (⌘K)"
-        className="flex size-8 items-center justify-center rounded-md text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground/50 cursor-pointer"
+        aria-label="Search and commands (Ctrl K)"
       >
         <Search className="size-4" />
-      </button>
+        <span className="font-sans text-sm/4 font-medium sm:hidden">Search…</span>
+        <KbdGroup className="hidden gap-0.75 sm:flex">
+          <Kbd>Ctrl</Kbd>
+          <Kbd className="w-5 min-w-auto">K</Kbd>
+        </KbdGroup>
+      </Button>
 
       {open && (
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 bg-background/80 backdrop-blur-sm p-4 animate-in fade-in-0">

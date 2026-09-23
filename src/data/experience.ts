@@ -20,7 +20,7 @@ export const experiences: ExperienceItem[] = [
     department: "Department of Computer Engineering",
     location: "Pune, India",
     advisor: "Prof. Ganesh Bhutkar",
-    period: "2025 – Present",
+    period: "Present",
     current: true,
     focus: "Usability of AI ICT Applications",
     highlights: [

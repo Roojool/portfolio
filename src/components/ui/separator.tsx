@@ -9,13 +9,13 @@ export function Separator({
   return (
     <div
       role="separator"
+      data-slot="separator"
       aria-orientation={orientation}
       data-orientation={orientation}
+      data-horizontal={orientation === "horizontal" ? "" : undefined}
       data-vertical={orientation === "vertical" ? "" : undefined}
       className={cn(
-        orientation === "horizontal"
-          ? "h-px w-full bg-line"
-          : "h-full w-px bg-line",
+        "shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch",
         className
       )}
       {...props}

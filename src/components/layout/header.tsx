@@ -17,15 +17,15 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 max-w-screen overflow-x-clip bg-background px-2">
       <div className="screen-line-top screen-line-bottom mx-auto flex h-[var(--header-height)] items-center gap-2 border-x screen-line-bottom-border screen-line-top-border pr-2 pl-4 sm:gap-4 md:max-w-3xl">
-        {/* Brand Mark */}
-        <Link href="/" aria-label="Rujul Talekar Home" className="flex items-center">
-          <RujulMark className="h-6 w-12 shrink-0 text-foreground transition-opacity hover:opacity-80" />
+        <Link href="/" aria-label="Home" className="flex items-center">
+          <span className="flex">
+            <RujulMark className="h-6 w-12 shrink-0 text-foreground transition-opacity hover:opacity-80" />
+          </span>
         </Link>
 
         <div className="flex-1" />
 
-        {/* Desktop Navigation */}
-        <nav className="hidden sm:flex items-center gap-4 text-xs sm:text-sm font-medium tracking-wide">
+        <nav className="max-sm:hidden flex items-center gap-4">
           {MAIN_NAV.map(({ title, href }) => {
             const isActive =
               href === "/"
@@ -38,10 +38,8 @@ export function Header() {
                 href={href}
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
-                  "transition-colors hover:text-foreground",
-                  isActive
-                    ? "text-foreground font-semibold"
-                    : "text-muted-foreground"
+                  "text-sm font-medium tracking-wide text-muted-foreground transition-[color] hover:text-foreground aria-[current=page]:text-foreground",
+                  isActive && "text-foreground font-semibold"
                 )}
               >
                 {title}
@@ -50,18 +48,17 @@ export function Header() {
           })}
         </nav>
 
-        {/* Separator & Controls */}
-        <div className="flex items-center">
+        <div className="flex items-center max-sm:*:data-[slot=command-menu-trigger]:hidden">
           <Separator
             orientation="vertical"
-            className="mr-1.5 sm:mr-2 h-4 sm:h-5 self-center"
+            className="mr-2 max-sm:hidden data-vertical:h-5 data-vertical:self-center"
           />
 
           <CommandMenu />
 
           <Separator
             orientation="vertical"
-            className="mx-1.5 sm:mx-2 h-4 sm:h-5 self-center"
+            className="mx-2 max-sm:hidden data-vertical:h-5 data-vertical:self-center"
           />
 
           <a
@@ -76,7 +73,7 @@ export function Header() {
 
           <Separator
             orientation="vertical"
-            className="mx-1.5 sm:mx-2 h-4 sm:h-5 self-center"
+            className="mx-2 data-vertical:h-5 data-vertical:self-center"
           />
 
           <ThemeToggle />

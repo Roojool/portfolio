@@ -8,6 +8,7 @@ export const SITE_INFO = {
   headline:
     "Computer Engineering undergraduate and researcher working at the intersection of Human-Centered AI, Video Management Systems, edge video analytics, and cellular transport dynamics.",
   url: SITE_URL,
+  domain: "portfolio-sigma-gray-12.vercel.app",
   githubUsername: "Roojool",
   sourceCodeUrl: "https://github.com/Roojool/portfolio",
   orcid: "0009-0008-5608-1512",
